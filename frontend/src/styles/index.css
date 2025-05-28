@@ -54,13 +54,18 @@ main{
         }
     }
 
-    & img.background{
+    & div.background{
+        position: relative;
+        display: block;
+        background-image: url("../assets/background1.png");
+        position: relative;
         height: 80vh;
         width: 100vw;
-        padding: 0;
+        padding: 64px;
         object-position: 0% 0%;
         object-fit: cover;
     }
+     
     & div.aboutUs{
         display: block;
         padding: 64px;
@@ -104,6 +109,9 @@ main{
         & div{
             display: block;
             padding: 16px;
+        }
+        &:hover{
+            scale: 1.01;
         }
 
     }

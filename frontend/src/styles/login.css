@@ -27,7 +27,7 @@ div.loginPage{
             row-gap: 8px;
         padding: 24px;
         width: 480px;
-        height: 240px;
+        height: 280px;
         border: 2px solid;
         background-color: transparent;
         backdrop-filter: blur(16px);
@@ -54,8 +54,19 @@ div.loginPage{
                 outline: none;
             }
         }
-        & a{
+        & a.toRegister{
             font-size: 0.8rem;
+        }
+        & a.toHome{
+            position: absolute;
+                left: 8px;
+                bottom: 8px;
+            width: 48px;
+                min-width: 48px;
+            height: 36px;
+                min-height: 36px;
+            background-size: cover;
+            background-image: url("../assets/arrowLeft.svg");
         }
         & button{
             height: 32px;

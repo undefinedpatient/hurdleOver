@@ -8,7 +8,7 @@ export default function LoginPage(){
     const [password, setPassword] = useState('');
     function login(event){
         event.preventDefault();
-        fetch('http://localhost:4000/login',{
+        const res = fetch('http://localhost:4000/login',{
             method: 'POST',
             body: JSON.stringify({username,password}),
             headers: {'Content-Type':'application/json'}
@@ -27,8 +27,9 @@ export default function LoginPage(){
                     <label>Password:&emsp;</label>
                     <input type="password" placeholder="password" value={password} onChange={e=>setPassword(e.target.value)}/>
                 </span>
-                <Link to="/register">Create an account</Link>
+                <Link to="/register" className="toRegister">Create an account</Link>
                 <button>Login</button>
+                <Link to="/" className="toHome"></Link>
             </form>
         </div>
     );

@@ -5,16 +5,22 @@ import { Link } from "react-router";
 export default function RegisterPage(){
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    function register(event){
+
+    async function register(event){
         event.preventDefault();
-        const res = fetch('http://localhost:4000/register',{
+        const res = await fetch('http://localhost:4000/register',{
             method: 'POST',
             body: JSON.stringify({username,password}),
             headers: {'Content-Type':'application/json'}
         });
-        alert(JSON.stringify(res));
-        
+        console.log(res.body);
+        if(res.status == 200){
+            alert("Success!");
+        }else{
+            alert("Failed.");
+        }
     }
+
     return (
         <div className="registerPage" onSubmit={register}>
             <form className="register">
@@ -28,8 +34,9 @@ export default function RegisterPage(){
                     <label>Password:&emsp;</label>
                     <input type="password" placeholder="password" value={password} onChange={e=>setPassword(e.target.value)}/>
                 </span>
-                <Link to="/login">already have an account?</Link>
+                <Link to="/login" className="toLogin">already have an account?</Link>
                 <button>Register</button>
+                <Link to="/" className="toHome"> </Link>
             </form>
         </div>
     );

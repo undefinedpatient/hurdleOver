@@ -1,5 +1,6 @@
 import "../styles/styles.css";
 import "../styles/login.css";
+import { Link } from 'react-router';
 import { useState } from "react";
 
 export default function LoginPage(){
@@ -26,6 +27,7 @@ export default function LoginPage(){
                     <label>Password:&emsp;</label>
                     <input type="password" placeholder="password" value={password} onChange={e=>setPassword(e.target.value)}/>
                 </span>
+                <Link to="/register">Create an account</Link>
                 <button>Login</button>
             </form>
         </div>

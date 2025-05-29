@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import './styles/styles.css';
-import './styles/index.css';
-import icon from './assets/cube.svg';
+import '../styles/styles.css';
+import '../styles/index.css';
+import icon from '../assets/cube.svg';
 
 function Post(){
     return (

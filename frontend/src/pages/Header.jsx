@@ -1,6 +1,6 @@
-import './styles/styles.css';
-import './styles/index.css';
-import logo from './assets/logo.svg';
+import '../styles/styles.css';
+import '../styles/index.css';
+import logo from '../assets/logo.svg';
 import { Link } from 'react-router';
 
 function Header(){
@@ -10,7 +10,7 @@ function Header(){
                 <img className="icon" src={logo}></img>
                 <h3>HurdleOver</h3>
                 <nav>
-                    <Link to="/">Home</Link>
+                    <a href="#">Home</a>
                     <Link to="/login">Login</Link>
                 </nav>
             </header>

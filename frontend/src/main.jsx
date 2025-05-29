@@ -1,18 +1,18 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import App from './App.jsx';
-import Login from './Login.jsx';
+import IndexPage from './pages/IndexPage.jsx';
+import LoginPage from './pages/LoginPage.jsx';
 import { createBrowserRouter, RouterProvider } from 'react-router';
 
 const router = createBrowserRouter([
 	{
 		path: '/',
-		element: <App/>,
+		element: <IndexPage/>,
 		errorElement: <div>Not Found</div>
 	},
 	{
 		path: '/login',
-		element: <Login/>,
+		element: <LoginPage/>,
 		errorElement: <div>Not Found</div>
 	}
 ]);
@@ -20,6 +20,5 @@ const router = createBrowserRouter([
 createRoot(document.getElementById('root')).render(
 <StrictMode>
 	<RouterProvider router={router} />
-	
 </StrictMode>,
 )

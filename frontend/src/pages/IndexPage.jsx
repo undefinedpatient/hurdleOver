@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import './styles/styles.css';
-import './styles/index.css';
+import '../styles/styles.css';
+import '../styles/index.css';
 import Background from './Background';
 import Post from './Post';
 import Header from './Header';
 import Footer from './Footer';
 
-export default function App() {
+export default function IndexPage() {
 	return (
 		<main>
 			<Header/>

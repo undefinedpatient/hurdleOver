@@ -2,69 +2,7 @@ main.indexPage{
     display: flex;
         flex-direction: column;
         
-    & header{
-        position: sticky;
-        top: 0;
-        display: flex;
-        width: 100vw;
-        height: fit-content;
-        background-color: var(--layer02);
-        z-index: 1;
-        /* Title */
-        & h3{
-            position: relative;
-            display: flex;
-                justify-content: center;
-                align-items: center;
-            padding: 4px 12px 4px 12px;
-            font-size: 2rem;
-            text-decoration: none;
-        }
-        & img.icon{
-            position: relative;
-            padding: 12px;
-            object-fit: contain;
-            image-rendering:crisp-edges;
-            width: 72px;
-        }
-        /* NavBar */
-        & nav{
-            position: relative;
-            display:flex;
-                flex-direction: row;
-                justify-content: space-between;
-            flex-grow: 1;
-            & span:nth-child(1){
-                position: relative;
-                flex-grow: 1;
-                display: flex;
-                    justify-content: left;
-            }
-            & span:nth-child(2){
-                position: relative;
-                flex-grow: 1;
-                display: flex;
-                    justify-content: right;
-            }
-            & a{
-                position: relative;
-                display: flex;
-                    align-items: center;
-                    justify-content: center;
-                flex-grow: 1;
-                max-width: 160px;
-                /* border: 1px double rgb(255, 0, 255); */
-                text-align: center;
-                text-decoration: none;
-                height: 100%;
-                line-height: 100%;
-                font-size: 1.4rem;
-                &:hover{
-                    background-color: rgba(255,255,255,0.1);
-                }
-            }
-        }
-    }
+    
 
     & div.background{
         position: relative;

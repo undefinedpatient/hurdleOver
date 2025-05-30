@@ -1,5 +1,5 @@
 import "../styles/styles.css";
-import "../styles/register.css";
+import "../styles/authPage.css";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 export default function RegisterPage(){
@@ -21,8 +21,8 @@ export default function RegisterPage(){
     }
 
     return (
-        <div className="registerPage" onSubmit={register}>
-            <form className="register">
+        <div className="authPage" onSubmit={register}>
+            <form className="auth">
                 <h3>HurdleOver</h3>
                 <h4>Register</h4>
                 <span>

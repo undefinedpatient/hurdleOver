@@ -1,4 +1,4 @@
-div.loginPage{
+div.authPage{
     display: flex;
         justify-content: center;
         align-items: center;
@@ -18,7 +18,7 @@ div.loginPage{
         mix-blend-mode: multiply; /* Blends color with grayscale image */
         
     }
-    & form{
+    & form.auth{
         position: relative;
         display: flex;
             flex-direction: column;
@@ -55,6 +55,9 @@ div.loginPage{
             }
         }
         & a.toRegister{
+            font-size: 0.8rem;
+        }
+        & a.toLogin{
             font-size: 0.8rem;
         }
         & a.toHome{

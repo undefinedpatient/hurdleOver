@@ -1,5 +1,5 @@
 import "../styles/styles.css";
-import "../styles/login.css";
+import "../styles/authPage.css";
 import { Link, Navigate } from 'react-router-dom';
 import { useState } from "react";
 
@@ -27,8 +27,8 @@ export default function LoginPage(){
     }
     
     return (
-        <div className="loginPage" onSubmit={login}>
-            <form className="login">
+        <div className="authPage" onSubmit={login}>
+            <form className="auth">
                 <h3>HurdleOver</h3>
                 <h4>Login</h4>
                 <span>

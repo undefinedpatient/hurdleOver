@@ -1,14 +1,35 @@
 import '../styles/styles.css';
-import '../styles/index.css';
+import '../styles/header.css';
 import logo from '../assets/logo.svg';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
-import Profile from './Profile.jsx';
+// function Profile({username}){
+//     if(username.length!=0){
+//         return (
+//             <span>
+//                 <Link to="/profile">{username}</Link>
+//             </span>
+            
+//         );
+//     }else{
+//         return (
+//             <span className="dropdown">
+//                 <Link to="/login">Login</Link>
+//                 <span className="dropdownContent">
+//                     <Link to="/login">MyPosts</Link>
+//                     <Link to="/login">Setting</Link>
+//                     <Link to="/login">Logout</Link>
+//                 </span>
+//             </span>
+            
+//         );
+//     }
+// }
 
-function Header(){
+
+export default function Header(){
     const [username, setUsername] = useState("");
-    
     useEffect(()=>{
         async function checkLoginStatus(){
             const res = await fetch('http://localhost:4000/profile',
@@ -28,6 +49,8 @@ function Header(){
 
         checkLoginStatus();
     }, []);
+
+
     return (
         <header>
             <img className="icon" src={logo}></img>
@@ -38,11 +61,25 @@ function Header(){
                     <Link to="/forum">Forum</Link>
                 </span>
                 <span>
-                    <Profile username={username}/>
+                    {   username.length!=0 &&
+                        <div className="dropdown">
+                            <Link to="/profile">{username}</Link>
+                            <div className="dropdownContent">
+                                <Link to="/profile">MyPosts</Link>
+                                <Link to="/profile">Setting</Link>
+                                <Link to="/login">Logout</Link>
+                            </div>
+                        </div>
+                    }
+                    {   username.length==0 &&
+                        <div>
+                            <Link to="/Login">Login</Link>
+                        </div>
+                    }
                 </span>
+                
                 
             </nav>
         </header>
     );
 }
-export default Header;

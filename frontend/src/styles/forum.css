@@ -1,7 +1,8 @@
-main.indexPage{
+main.forumPage{
+    position: relative;
     display: flex;
         flex-direction: column;
-        
+    
     & header{
         position: sticky;
         top: 0;
@@ -65,71 +66,46 @@ main.indexPage{
             }
         }
     }
-
-    & div.background{
-        position: relative;
-        display: block;
+    & h1{
         background-image: url("../assets/background1.png");
-        position: relative;
-        height: 80vh;
-        width: 100vw;
-        padding: 64px;
-        object-position: 0% 0%;
-        object-fit: cover;
+        padding: 32px;
     }
-     
-    & div.aboutUs{
-        position: relative;
-        padding: 64px;
-        background-color: var(--layer04);
-        & p{
-            position: relative;
-            padding: 16px;
-            max-width: 80%;
-            margin: auto;
-            
-        }
-    }
-    /* BlogList */
     & div.postEntries{
-        position: relative;
         display: flex;
             flex-direction: column;
             align-items: center;
-        background-color: var(--layer03);
-        
-        padding: 64px;
-        width: 100vw;
-        
-        height: 1280px;
-    }
-
-    & div.post{
-        position: relative;
-        display: grid;
-            grid-template-columns: 0.16fr 1fr;
+        background-image: none;
+        background-color: var(--layer04);
         width: 100%;
-        max-width: 900px;
         height: min-content;
-        padding: 16px;
-        margin: 8px;
-        border: 1px double rgb(255, 255, 255);
-        background-color: rgba(0,0,0,0.2);
-        transition: all 0.2s ease-in-out;
-        & img{
-            width: 100%;
-            height: 100%;
-            padding: 8px;
-            object-fit: contain;
-        }
-        & div{
-            display: block;
-            padding: 16px;
-        }
-        &:hover{
-            scale: 1.01;
-        }
+        padding: 32px;
+        & div.post{
+            position: relative;
+            display: grid;
+                grid-template-columns: 0.16fr 1fr;
+            width: 90%;
+            max-width: 900px;
+            height: min-content;
+            padding: 0px 16px;
+            margin: 8px;
+            border: 1px double rgb(255, 255, 255);
+            background-color: rgba(0,0,0,0.2);
+            transition: all 0.2s ease-in-out;
+            & img{
+                width: 100%;
+                height: 100%;
+                padding: 8px;
+                object-fit: contain;
+            }
+            & div{
+                display: block;
+                padding: 16px;
+            }
+            &:hover{
+                scale: 1.01;
+            }
 
+        }
     }
 
     & footer{

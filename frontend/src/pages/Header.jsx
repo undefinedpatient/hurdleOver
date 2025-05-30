@@ -34,7 +34,7 @@ function Header(){
             <h3>HurdleOver</h3>
             <nav>
                 <span>
-                    <a href="#">Home</a>
+                    <Link to="/">Home</Link>
                     <Link to="/forum">Forum</Link>
                 </span>
                 <span>

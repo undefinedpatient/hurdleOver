@@ -6,6 +6,7 @@ import IndexPage from './pages/IndexPage.jsx';
 import LoginPage from './pages/LoginPage.jsx';
 import RegisterPage from './pages/RegisterPage.jsx';
 import NotFoundPage from './pages/NotFoundPage.jsx';
+import ForumPage from './pages/ForumPage.jsx';
 
 const router = createBrowserRouter([
 	{
@@ -21,6 +22,11 @@ const router = createBrowserRouter([
 	{
 		path: '/login',
 		element: <LoginPage/>,
+		errorElement: <NotFoundPage/>
+	},
+	{
+		path: '/forum',
+		element: <ForumPage/>,
 		errorElement: <NotFoundPage/>
 	}
 ]);

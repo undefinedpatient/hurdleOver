@@ -1,19 +1,31 @@
 import "../styles/styles.css";
 import "../styles/login.css";
-import { Link } from 'react-router';
+import { Link, Navigate } from 'react-router-dom';
 import { useState } from "react";
 
 export default function LoginPage(){
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    function login(event){
+    const [redirect, setRedirect] = useState(false);
+    async function login(event){
         event.preventDefault();
-        const res = fetch('http://localhost:4000/login',{
+        const res = await fetch('http://localhost:4000/login',{
             method: 'POST',
             body: JSON.stringify({username,password}),
-            headers: {'Content-Type':'application/json'}
+            headers: {'Content-Type':'application/json'},
+            credentials: "include"
         });
+        if(res.status == 200){
+            setRedirect(true);
+        }else{
+            alert("Login Failed");
+        }   
     }
+
+    if(redirect==true){
+        return <Navigate to="/"/>;
+    }
+    
     return (
         <div className="loginPage" onSubmit={login}>
             <form className="login">

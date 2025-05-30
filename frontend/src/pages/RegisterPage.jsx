@@ -1,7 +1,7 @@
 import "../styles/styles.css";
 import "../styles/register.css";
 import { useState } from "react";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 export default function RegisterPage(){
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -13,7 +13,6 @@ export default function RegisterPage(){
             body: JSON.stringify({username,password}),
             headers: {'Content-Type':'application/json'}
         });
-        console.log(res.body);
         if(res.status == 200){
             alert("Success!");
         }else{

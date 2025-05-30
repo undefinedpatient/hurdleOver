@@ -34,6 +34,18 @@ main{
                 flex-direction: row;
                 justify-content: space-between;
             flex-grow: 1;
+            & span:nth-child(1){
+                position: relative;
+                flex-grow: 1;
+                display: flex;
+                    justify-content: left;
+            }
+            & span:nth-child(2){
+                position: relative;
+                flex-grow: 1;
+                display: flex;
+                    justify-content: right;
+            }
             & a{
                 position: relative;
                 display: flex;
@@ -67,11 +79,15 @@ main{
     }
      
     & div.aboutUs{
-        display: block;
+        position: relative;
         padding: 64px;
         background-color: var(--layer04);
         & p{
+            position: relative;
             padding: 16px;
+            max-width: 80%;
+            margin: auto;
+            
         }
     }
     /* BlogList */

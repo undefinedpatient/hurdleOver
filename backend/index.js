@@ -5,10 +5,13 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
+const dotenv = require("dotenv");
+    dotenv.config();
+
 
 try{
     console.log("Connecting to MongoDB Server");
-    mongoose.connect("mongodb+srv://root:PGohVix4ggeVKISf@cluster0.okymdr7.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0");
+    mongoose.connect(`mongodb+srv://root:${process.env.DB_PASSWORD}@cluster0.okymdr7.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`);
     console.log("Connected to MongoDB Server");
 }catch(e){
     console.log(e);
@@ -18,7 +21,7 @@ const app = express();
 const port = 4000;
 const saltRound = 11;
 const salt = bcrypt.genSaltSync(saltRound);
-const secretPrivateKey = "random-string-1234567890";
+const secretPrivateKey = process.env.PRIVATE_KEY;
 
 // Defining Middlewares
 app.use(cors({credentials:true,origin:"http://localhost:5173"}))

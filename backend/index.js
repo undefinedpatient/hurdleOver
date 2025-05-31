@@ -30,7 +30,7 @@ app.use(cookieParser());
 //
 app.get("/profile", (req, res)=>{
     const {token} = req.cookies;
-    if(token==null){
+    if(token==null||token.length==0){
         res.status(401).json({message: "no token"});
     }
     else{
@@ -97,7 +97,7 @@ app.post("/login", async (req, res)=>{
 });
 
 app.post("/logout", (req, res)=>{
-   res.status(200).cookie("token","").json(ok); 
+   res.status(200).clearCookie("token").json({message:"ok"}); 
 });
 
 app.listen(port);

@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const UserModel = require("./models/User.js")
+const { UserModel, accessLevel } = require("./models/User.js")
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -17,6 +17,8 @@ try{
     console.log(e);
 }
 
+
+
 const app = express();
 const port = 4000;
 const saltRound = 11;
@@ -31,7 +33,7 @@ app.use(cookieParser());
 app.get("/profile", (req, res)=>{
     const {token} = req.cookies;
     if(token==null||token.length==0){
-        res.status(401).json({message: "no token"});
+        res.status(401).json({message: "noToken"});
     }
     else{
         jwt.verify(token, secretPrivateKey, {}, (err,info)=>{
@@ -42,14 +44,14 @@ app.get("/profile", (req, res)=>{
     
 });
 
-
 app.post("/register", async (req,res)=>{
     const {username, password} = req.body;
     try{
         const userDoc = await UserModel.create(
             {
                 username:username,
-                password:bcrypt.hashSync(password, salt)
+                password:bcrypt.hashSync(password, salt),
+                accessLevel: accessLevel.USER
             }
         );
 
@@ -72,8 +74,9 @@ app.post("/login", async (req, res)=>{
     //If password match, create token for session
     if(bcrypt.compareSync(password, userDoc.password)){
         jwt.sign({
-            id:userDoc._id,
-            username:userDoc.username
+            id: userDoc._id,
+            username: userDoc.username,
+            accessLevel: userDoc.accessLevel
         },
         secretPrivateKey, 
         {

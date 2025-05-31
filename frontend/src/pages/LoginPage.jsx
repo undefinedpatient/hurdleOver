@@ -1,14 +1,16 @@
 import "../styles/styles.css";
 import "../styles/authPage.css";
 import { Link, Navigate } from 'react-router-dom';
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { UserContext } from "../UserContext";
 
 export default function LoginPage(){
     // Local Variables
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [redirect, setRedirect] = useState(false);
-    // 
+    // Context
+    const {userInfo, setUserInfo} = useContext(UserContext);
     async function login(event){
         event.preventDefault();
         const res = await fetch('http://localhost:4000/login',{

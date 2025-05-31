@@ -38,7 +38,9 @@ function logout(){
 
 
 export default function Header(){
+    // Context
     const {userInfo, setUserInfo} = useContext(UserContext);
+    // 
     useEffect(()=>{
         async function checkLoginStatus(){
             const res = await fetch('http://localhost:4000/profile',
@@ -48,7 +50,7 @@ export default function Header(){
                 }
             )
             const info = await res.json();
-            if(info.username==null){
+            if(info?.username==null){
                 setUserInfo({});
                 return;
             }

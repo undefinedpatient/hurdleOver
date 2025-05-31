@@ -60,7 +60,13 @@ main.forumPage{
         padding: 16px;
     }
     & input{
+        border: 2px solid rgb(54, 56, 163);
         outline: none;
+        padding: 4px;
+        background-color: var(--layer02);
+    }
+    & button{
+        border: 2px solid rgb(54, 56, 163);
         padding: 4px;
         background-color: var(--layer02);
     }

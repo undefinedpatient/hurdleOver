@@ -4,28 +4,35 @@ import logo from '../assets/logo.svg';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
-// function Profile({username}){
-//     if(username.length!=0){
-//         return (
-//             <span>
-//                 <Link to="/profile">{username}</Link>
-//             </span>
+function Profile({username}){
+    if(username.length!=0){
+        return (
+            <div className="dropdown">
+                <Link to="/profile">{username}</Link>
+                <div className="dropdownContent">
+                    <Link to="/myposts">MyPosts</Link>
+                    <Link to="/profile">Setting</Link>
+                    <Link to="/login" onClick={logout}>Logout</Link>
+                </div>
+            </div>
             
-//         );
-//     }else{
-//         return (
-//             <span className="dropdown">
-//                 <Link to="/login">Login</Link>
-//                 <span className="dropdownContent">
-//                     <Link to="/login">MyPosts</Link>
-//                     <Link to="/login">Setting</Link>
-//                     <Link to="/login">Logout</Link>
-//                 </span>
-//             </span>
+        );
+    }else{
+        return (
+            <div>
+                <Link to="/Login">Login</Link>
+            </div>
             
-//         );
-//     }
-// }
+        );
+    }
+}
+
+function logout(){
+    fetch("http://localhost:4000/logout",{
+        credentials: "include",
+        method: "POST"
+    })
+}
 
 
 export default function Header(){
@@ -61,21 +68,7 @@ export default function Header(){
                     <Link to="/forum">Forum</Link>
                 </span>
                 <span>
-                    {   username.length!=0 &&
-                        <div className="dropdown">
-                            <Link to="/profile">{username}</Link>
-                            <div className="dropdownContent">
-                                <Link to="/profile">MyPosts</Link>
-                                <Link to="/profile">Setting</Link>
-                                <Link to="/login">Logout</Link>
-                            </div>
-                        </div>
-                    }
-                    {   username.length==0 &&
-                        <div>
-                            <Link to="/Login">Login</Link>
-                        </div>
-                    }
+                    <Profile username={username}/>
                 </span>
                 
                 

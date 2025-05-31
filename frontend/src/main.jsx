@@ -7,6 +7,7 @@ import LoginPage from './pages/LoginPage.jsx';
 import RegisterPage from './pages/RegisterPage.jsx';
 import NotFoundPage from './pages/NotFoundPage.jsx';
 import ForumPage from './pages/ForumPage.jsx';
+import MyPostsPage from './pages/MyPostsPage.jsx';
 
 const router = createBrowserRouter([
 	{
@@ -27,6 +28,11 @@ const router = createBrowserRouter([
 	{
 		path: '/forum',
 		element: <ForumPage/>,
+		errorElement: <NotFoundPage/>
+	},
+	{
+		path: '/myposts',
+		element: <MyPostsPage/>,
 		errorElement: <NotFoundPage/>
 	}
 ]);

@@ -44,7 +44,26 @@ main.forumPage{
 
         }
     }
-
+    & div.filterAndSort{
+        position: relative;
+        display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        background-color: var(--layer01);
+    }
+    & form.filterSection{
+        position: relative;
+        display: flex;
+            flex-direction: row;
+            justify-content: center;
+            column-gap: 16px;
+        padding: 16px;
+    }
+    & input{
+        outline: none;
+        padding: 4px;
+        background-color: var(--layer02);
+    }
     & footer{
         display: block;
         height: 256px;

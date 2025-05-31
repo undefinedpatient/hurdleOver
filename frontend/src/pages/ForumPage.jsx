@@ -11,6 +11,20 @@ export default function ForumPage(){
         <main className="forumPage">
             <Header/>
             <h1>Forum</h1>
+            <div className="filterAndSort">
+                <form className="filterSection" action="">
+                    <input></input>
+                    <input></input>
+                    <input type="checkbox"></input>
+                    <button>Filter</button>
+                </form>
+                <form className="filterSection" action="">
+                    <input></input>
+                    <input></input>
+                    <input type="checkbox"></input>
+                    <button>Filter</button>
+                </form>
+            </div>
             <div className="postEntries">
                 <Post/>
                 <Post/>

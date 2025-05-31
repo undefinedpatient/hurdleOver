@@ -33,11 +33,11 @@ export default function LoginPage(){
                 <h4>Login</h4>
                 <span>
                     <label>Username:&emsp;</label>
-                    <input type="text" placeholder="username" value={username} onChange={e=>setUsername(e.target.value)}/>
+                    <input type="text" placeholder="username" value={username} onChange={e=>setUsername(e.target.value)} required/>
                 </span>
                 <span>
                     <label>Password:&emsp;</label>
-                    <input type="password" placeholder="password" value={password} onChange={e=>setPassword(e.target.value)}/>
+                    <input type="password" placeholder="password" value={password} onChange={e=>setPassword(e.target.value)} required/>
                 </span>
                 <Link to="/register" className="toRegister">Create an account</Link>
                 <button>Login</button>

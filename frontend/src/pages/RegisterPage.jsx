@@ -27,11 +27,11 @@ export default function RegisterPage(){
                 <h4>Register</h4>
                 <span>
                     <label>Username:&emsp;</label>
-                    <input type="text" placeholder="username" value={username} onChange={e=>setUsername(e.target.value)}/>
+                    <input type="text" placeholder="username" value={username} onChange={e=>setUsername(e.target.value)} required/>
                 </span>
                 <span>
                     <label>Password:&emsp;</label>
-                    <input type="password" placeholder="password" value={password} onChange={e=>setPassword(e.target.value)}/>
+                    <input type="password" placeholder="password" value={password} onChange={e=>setPassword(e.target.value)} required/>
                 </span>
                 <Link to="/login" className="toLogin">already have an account?</Link>
                 <button>Register</button>

@@ -96,4 +96,8 @@ app.post("/login", async (req, res)=>{
     }
 });
 
+app.post("/logout", (req, res)=>{
+   res.status(200).cookie("token","").json(ok); 
+});
+
 app.listen(port);

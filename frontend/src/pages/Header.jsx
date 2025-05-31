@@ -2,10 +2,12 @@ import '../styles/styles.css';
 import '../styles/header.css';
 import logo from '../assets/logo.svg';
 import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { UserContext } from '../UserContext';
 
+// This function take username only but not the entire info
 function Profile({username}){
-    if(username.length!=0){
+    if(username!=null&&username.length!=0){
         return (
             <div className="dropdown">
                 <Link to="/profile">{username}</Link>
@@ -26,7 +28,7 @@ function Profile({username}){
         );
     }
 }
-
+//Logout Handler
 function logout(){
     fetch("http://localhost:4000/logout",{
         credentials: "include",
@@ -36,7 +38,7 @@ function logout(){
 
 
 export default function Header(){
-    const [username, setUsername] = useState("");
+    const {userInfo, setUserInfo} = useContext(UserContext);
     useEffect(()=>{
         async function checkLoginStatus(){
             const res = await fetch('http://localhost:4000/profile',
@@ -47,10 +49,10 @@ export default function Header(){
             )
             const info = await res.json();
             if(info.username==null){
-                setUsername("");
+                setUserInfo({});
                 return;
             }
-            setUsername(info.username);
+            setUserInfo(info);
             return;
         }
 
@@ -68,10 +70,8 @@ export default function Header(){
                     <Link to="/forum">Forum</Link>
                 </span>
                 <span>
-                    <Profile username={username}/>
+                    <Profile username={userInfo.username}/>
                 </span>
-                
-                
             </nav>
         </header>
     );

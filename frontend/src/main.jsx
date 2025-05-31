@@ -8,6 +8,7 @@ import RegisterPage from './pages/RegisterPage.jsx';
 import NotFoundPage from './pages/NotFoundPage.jsx';
 import ForumPage from './pages/ForumPage.jsx';
 import MyPostsPage from './pages/MyPostsPage.jsx';
+import { UserContextProvider } from './UserContext.jsx';
 
 const router = createBrowserRouter([
 	{
@@ -39,6 +40,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
 <StrictMode>
-	<RouterProvider router={router} />
+	<UserContextProvider>
+		<RouterProvider router={router} />
+	</UserContextProvider>
 </StrictMode>,
 )

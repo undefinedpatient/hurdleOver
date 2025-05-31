@@ -3,9 +3,10 @@ import "../styles/authPage.css";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 export default function RegisterPage(){
+    // Local Variables
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-
+    // 
     async function register(event){
         event.preventDefault();
         const res = await fetch('http://localhost:4000/register',{

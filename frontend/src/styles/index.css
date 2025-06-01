@@ -19,13 +19,13 @@ main.indexPage{
     & div.aboutUs{
         position: relative;
         padding: 64px;
+        text-align: center;
         background-color: var(--layer04);
         & p{
             position: relative;
             padding: 16px;
             max-width: 80%;
             margin: auto;
-            
         }
     }
     /* BlogList */

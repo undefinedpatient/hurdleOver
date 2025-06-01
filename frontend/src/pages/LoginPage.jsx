@@ -44,7 +44,7 @@ export default function LoginPage(){
                     <input type="password" placeholder="password" value={password} onChange={e=>setPassword(e.target.value)} required/>
                 </span>
                 <Link to="/register" className="toRegister">Create an account</Link>
-                <button>Login</button>
+                <button type="submit">Login</button>
                 <Link to="/" className="toHome"></Link>
             </form>
         </div>

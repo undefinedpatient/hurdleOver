@@ -9,14 +9,18 @@ import { UserContext } from '../UserContext';
 function Profile({username}){
     if(username!=null&&username.length!=0){
         return (
-            <div className="dropdown">
-                <Link to="/profile">{username}</Link>
-                <div className="dropdownContent">
-                    <Link to="/myposts">MyPosts</Link>
-                    <Link to="/profile">Setting</Link>
-                    <Link to="/login" onClick={logout}>Logout</Link>
+            <>
+                <Link to="/createpost">Create New Post</Link>
+                <div className="dropdown">
+                    <Link to="/profile">{username}</Link>
+                    <div className="dropdownContent">
+                        <Link to="/myposts">MyPosts</Link>
+                        <Link to="/profile">Setting</Link>
+                        <Link to="/login" onClick={logout}>Logout</Link>
+                    </div>
                 </div>
-            </div>
+            </>
+            
             
         );
     }else{

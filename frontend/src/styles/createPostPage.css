@@ -1,0 +1,51 @@
+main.createPostPage{
+    display: flex;
+        justify-content: center;
+        align-items: center;
+    position: relative;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgb(67, 112, 151);
+    background-image: url("../assets/background1.png");
+    & form{
+        position: relative;
+        display: flex;
+            flex-direction: column;
+            justify-content: center;
+            row-gap: 16px;
+        
+        height: clamp(600px, 80vh ,900px);
+        width: 900px;
+        padding: 64px;
+        background-color: transparent;
+        backdrop-filter: blur(16px);
+        border: 2px solid white;
+        & input{
+            background-color: var(--layer05);
+            border: 2px solid white;
+            outline: none;
+            padding: 4px;
+            /* Summary */
+            &:nth-child(4){
+                height: 100px;
+            }
+            /* Content */
+            &:nth-child(5){
+                height: 400px;
+            }
+            &:focus{
+                border: 2px solid rgb(255, 255, 255, 0.5);
+            }
+        }
+        & select{
+            background-color: var(--layer04);
+            padding: 8px;
+            border: 2px solid white;
+        }
+        & button{
+            background-color: var(--layer04);
+            border: 2px solid white;
+        }
+        
+    }
+}

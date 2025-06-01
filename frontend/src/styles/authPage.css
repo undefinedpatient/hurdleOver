@@ -50,8 +50,11 @@ div.authPage{
                 padding: 4px;
                 max-width: 240px;
                 flex: 4 4 0;
-                border: 2px solid rgb(255, 255, 255, 0.2);
+                border: 2px solid rgb(255, 255, 255, 1);
                 outline: none;
+                &:focus{
+                    border: 2px solid rgb(255, 255, 255, 0.5);
+                }
             }
         }
         & a.toRegister{
@@ -76,7 +79,7 @@ div.authPage{
             width: 96px;
             background-color: transparent;
             margin: 2px;
-            border: 2px solid rgb(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 1);
             &:hover{
                 filter: invert(100%);
             }

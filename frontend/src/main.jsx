@@ -9,6 +9,7 @@ import NotFoundPage from './pages/NotFoundPage.jsx';
 import ForumPage from './pages/ForumPage.jsx';
 import MyPostsPage from './pages/MyPostsPage.jsx';
 import { UserContextProvider } from './UserContext.jsx';
+import CreatePostPage from './pages/CreatePostPage.jsx';
 
 const router = createBrowserRouter([
 	{
@@ -34,6 +35,11 @@ const router = createBrowserRouter([
 	{
 		path: '/myposts',
 		element: <MyPostsPage/>,
+		errorElement: <NotFoundPage/>
+	},
+	{
+		path: '/createpost',
+		element: <CreatePostPage/>,
 		errorElement: <NotFoundPage/>
 	}
 ]);

@@ -1,8 +1,12 @@
 import Header from "./Header";
 import Footer from "./Footer";
+import Tiptap from "../components/Tiptap";
 import "../styles/createPostPage.css"
+import "../styles/tiptap.css"
 
 export default function CreatePostPage(){
+    
+
     return (
         <>
             <Header/>
@@ -17,10 +21,12 @@ export default function CreatePostPage(){
                         <option value="option4">Animating</option>
                     </select>
                     <input type="text" id="summary" placeholder="Summary (10-50 words)"></input>
-                    <input type="text" id="content" placeholder="Content"></input>
+                    <Tiptap/>
                     <input type="file" accept="image/*"></input>
-                    <button type="submit">Save as Draft</button>
-                    <button type="submit">Post</button>
+                    <span className="buttonContainer">
+                        <button type="submit">Save as Draft</button>
+                        <button type="submit">Post</button>
+                    </span>
                 </form>
             </main>
             <Footer/>

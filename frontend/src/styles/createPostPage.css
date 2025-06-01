@@ -3,28 +3,32 @@ main.createPostPage{
         justify-content: center;
         align-items: center;
     position: relative;
-    height: 100vh;
+    height: max-content;
     width: 100vw;
     background-color: rgb(67, 112, 151);
     background-image: url("../assets/background1.png");
+    background-size: cover;
     & form{
         position: relative;
         display: flex;
             flex-direction: column;
             justify-content: center;
             row-gap: 16px;
-        
-        height: clamp(600px, 80vh ,900px);
+        margin: 240px 0;
+        height: clamp(600px, max-content ,max-content);
         width: 900px;
         padding: 64px;
         background-color: transparent;
         backdrop-filter: blur(16px);
+        box-shadow: 0px 0px 24px rgb(10, 6, 32);
         border: 2px solid white;
         & input{
             background-color: var(--layer05);
             border: 2px solid white;
             outline: none;
-            padding: 4px;
+            box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.5);
+            padding: 16px;
+
             /* Summary */
             &:nth-child(4){
                 height: 100px;
@@ -41,10 +45,26 @@ main.createPostPage{
             background-color: var(--layer04);
             padding: 8px;
             border: 2px solid white;
+            &:focus{
+                border: 2px solid rgb(255, 255, 255, 0.5);
+            }
         }
-        & button{
+        & .buttonContainer{
+            position: relative;
+            display: flex;
+                flex-direction: row;
+                justify-content: space-around;
+                column-gap: 64px;
+        }
+        & span>button{
+            flex: 1;
             background-color: var(--layer04);
             border: 2px solid white;
+            min-width: 64px;
+            padding: 8px;
+            &:hover{
+                filter: invert(100%);
+            }
         }
         
     }

@@ -1,7 +1,9 @@
-import "../styles/styles.css";
-import "../styles/authPage.css";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+
+import "../styles/styles.css";
+import "../styles/authPage.css";
+
 export default function RegisterPage(){
     // Local Variables
     const [username, setUsername] = useState('');

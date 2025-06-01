@@ -1,0 +1,43 @@
+div.editor{
+    
+    div.tiptap {
+        position: relative;
+        background-color: var(--layer04);
+        padding: 16px;
+        outline: none;
+        height: min-content;
+        border: 2px solid white;
+        p.is-editor-empty:first-child::before {
+            color: gray;
+            content: attr(data-placeholder);
+            float: left;
+            height: 0;
+            pointer-events: none;
+        }
+            &:focus{
+        border: 2px solid rgb(255, 255, 255, 0.5);
+    }
+    }
+    div.buttonBar{
+        & button{
+            background-color: var(--layer04);
+            min-width: 64px;
+            padding: 8px;
+            border: 0px solid white;
+                border-width: 2px 0px 0px;
+            &:hover{
+                filter: invert(100%);
+            }
+            &:nth-child(1){
+                border: 0px solid white;
+                    border-width: 2px 0px 0px 2px;
+            }
+            &:nth-last-child(1){
+                border: 0px solid white;
+                    border-width: 2px 2px 0px 0px;
+            }
+        }
+        
+    }
+
+}

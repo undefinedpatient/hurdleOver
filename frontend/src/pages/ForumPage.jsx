@@ -1,11 +1,13 @@
 import { useState } from "react";
 
-import "../styles/styles.css";
-import "../styles/forum.css";
-
 import Post from "./Post"
 import Header from "./Header";
 import Footer from "./Footer";
+
+import "../styles/styles.css";
+import "../styles/forum.css";
+
+
 export default function ForumPage(){
     return(
         <>

@@ -23,7 +23,7 @@ main.createPostPage{
         box-shadow: 0px 0px 24px rgb(10, 6, 32);
         border: 2px solid white;
         & input{
-            background-color: var(--layer05);
+            background-color: var(--layer04);
             border: 2px solid white;
             outline: none;
             box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.5);

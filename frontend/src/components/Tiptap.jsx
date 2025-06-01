@@ -1,19 +1,13 @@
 // src/Tiptap.tsx
 import { useEditor, EditorContent, FloatingMenu, BubbleMenu } from '@tiptap/react';
 import Placeholder from "@tiptap/extension-placeholder";
-
+import Document from '@tiptap/extension-document'
+import Paragraph from '@tiptap/extension-paragraph'
+import Text from '@tiptap/extension-text'
 import StarterKit from "@tiptap/starter-kit";
 import "../styles/tiptap.css"
-
-export default function Tiptap(){
-    const editor = useEditor({
-    extensions: [
-            StarterKit,
-            Placeholder.configure({
-                placeholder: 'Write something …',
-            })
-        ]
-    });
+// Require an editor as an input
+export default function Tiptap({ editor }){
     function onBoldClick(event){
         event.preventDefault();
         editor.chain().focus().toggleBold().run();
@@ -26,26 +20,20 @@ export default function Tiptap(){
         event.preventDefault();
         editor.chain().focus().toggleStrike().run();
     }
-    function onClearFormatClick(event){
+    function onClearClick(event){
         event.preventDefault();
-        editor.chain().selectAll().unsetBold().unsetStrike().unsetItalic().run();
+        editor.chain().clearContent().run();
     }
-
-
-
-
     return (
-    <div className="editor">
-        <div className="buttonBar">
-            <button onClick={onBoldClick}>Bold</button>
-            <button onClick={onStrikeClick}>Strike</button>
-            <button onClick={onItalicClick}>Italic</button>
-            <button onClick={onClearFormatClick}>Clear Format</button>
-        </div>
-        <EditorContent editor={editor}/>
+        <div className="editor">
+            <div className="buttonBar">
+                <button onClick={onBoldClick}>Bold</button>
+                <button onClick={onStrikeClick}>Strike</button>
+                <button onClick={onItalicClick}>Italic</button>
+                <button onClick={onClearClick}>Clear</button>
+            </div>
+            <EditorContent editor={editor} id="editor"/>
 
-    </div>
+        </div>
     );
 }
-        // <FloatingMenu editor={editor}>This is the floating menu</FloatingMenu>
-        // <BubbleMenu editor={editor}>This is the bubble menu</BubbleMenu>

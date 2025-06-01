@@ -8,19 +8,19 @@ div.editor{
         height: min-content;
         border: 2px solid white;
         p.is-editor-empty:first-child::before {
-            color: gray;
+            color: rgb(173, 173, 173);
             content: attr(data-placeholder);
             float: left;
             height: 0;
             pointer-events: none;
         }
-            &:focus{
-        border: 2px solid rgb(255, 255, 255, 0.5);
-    }
+        &:focus{
+            border: 2px solid rgb(255, 255, 255, 0.5);
+        }
     }
     div.buttonBar{
         & button{
-            background-color: var(--layer04);
+            background-color: var(--layer03);
             min-width: 64px;
             padding: 8px;
             border: 0px solid white;

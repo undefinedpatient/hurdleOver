@@ -6,9 +6,9 @@ import { UserContext } from "../UserContext";
 
 export default function LoginPage(){
     // Local Variables
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [redirect, setRedirect] = useState(false);
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const nagivate = useNavigate();
     // Context
     const {userInfo, setUserInfo} = useContext(UserContext);
     async function login(event){
@@ -20,16 +20,11 @@ export default function LoginPage(){
             credentials: "include"
         });
         if(res.status == 200){
-            setRedirect(true);
+            nagivate("/");
         }else{
             alert("Login Failed");
         }   
     }
-
-    if(redirect==true){
-        return <Navigate to="/"/>;
-    }
-    
     return (
         <div className="authPage" onSubmit={login}>
             <form className="auth">

@@ -13,8 +13,17 @@ import Tiptap from "../components/Tiptap";
 
 import "../styles/createPostPage.css"
 import "../styles/tiptap.css"
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function CreatePostPage(){
+    // Local Variables
+    const [title,setTitle] = useState("");
+    const [category,setCategory] = useState("");
+    const [summary,setSummary] = useState("");
+    const [file,setFile] = useState("");
+    //
+    const nagivate = useNavigate();
     const editor = useEditor({
         extensions: [
             StarterKit,
@@ -26,31 +35,43 @@ export default function CreatePostPage(){
             Text
         ]
     });
-    function onSaveDraft(event){
+
+    async function onSaveDraft(event){
+        
         event.preventDefault();
-        let text = editor.getHTML();
-        console.log(text);
+        const data = new FormData();
+        data.set("title", title);
+        data.set("summary", summary);
+        data.set("category", category);
+        data.set("content", editor.getHTML());
+        data.set("file", file[0]);
+        const response = await fetch("http://localhost:4000/post", {
+            method: "POST",
+            body: data
+        });
+        console.log(await response.json());
+        if(response.status==200){
+            nagivate("/forum");
+        }
     }
     return (
         <>
             <Header/>
             <main className="createPostPage">
-                <form>
+                <form onSubmit={onSaveDraft} enctype="multipart/form-data"> 
                     <h2>Create New Post</h2>
-                    <input type="text" id="title" placeholder="Title"></input>
-                    <select name="dropdown">
-                        <option value="option1">Modelling</option>
-                        <option value="option2">Lighting</option>
-                        <option value="option3">Texturing</option>
-                        <option value="option4">Animating</option>
+                    <input required type="text" id="title" placeholder="Title" onChange={event=>setTitle(event.target.value)}></input>
+                    <select required name="dropdown" id="category" onChange={event=>setCategory(event.target.value)}>
+                        <option value="none" disabled selected>Select your category</option>
+                        <option value="modelling">Modelling</option>
+                        <option value="lighting">Lighting</option>
+                        <option value="texturing">Texturing</option>
+                        <option value="animating">Animating</option>
                     </select>
-                    <input type="text" id="summary" placeholder="Summary (10-50 words)"></input>
+                    <input required type="text" id="summary" placeholder="Summary (10-50 words)" onChange={event=>setSummary(event.target.value)}></input>
                     <Tiptap editor={editor}/>
-                    <input type="file" accept="image/*"></input>
-                    <span className="buttonContainer">
-                        <button type="submit" id="onSaveDraft" onClick={onSaveDraft}>Save Draft</button>
-                        <button type="submit">Post</button>
-                    </span>
+                    <input required type="file" id="file" accept="image/jpg,image/jpeg,/image/webp" onChange={event=>setFile(event.target.files)}></input>
+                        <button>Post</button>
                 </form>
             </main>
             <Footer/>

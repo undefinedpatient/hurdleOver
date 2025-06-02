@@ -56,11 +56,12 @@ main.createPostPage{
                 justify-content: space-around;
                 column-gap: 64px;
         }
-        & span>button{
+        & button{
             flex: 1;
             background-color: var(--layer04);
             border: 2px solid white;
             min-width: 64px;
+            width: 128px;
             padding: 8px;
             &:hover{
                 filter: invert(100%);

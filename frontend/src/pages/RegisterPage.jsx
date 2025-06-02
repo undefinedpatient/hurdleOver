@@ -8,6 +8,7 @@ export default function RegisterPage(){
     // Local Variables
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const nagivate = useNavigate();
     // 
     async function register(event){
         event.preventDefault();
@@ -21,8 +22,9 @@ export default function RegisterPage(){
         });
         if(res.status == 200){
             alert("Success!");
+            nagivate("/login");
         }else{
-            alert("Failed.");
+            alert("Registration Failed.");
         }
     }
 

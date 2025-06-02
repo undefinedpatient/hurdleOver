@@ -27,7 +27,6 @@ export default function CreatePostPage(){
     const nagivate = useNavigate();
     const editor = useEditor({
         extensions: [
-            StarterKit,
             Placeholder.configure({
                 placeholder: 'Write something …',
             }),

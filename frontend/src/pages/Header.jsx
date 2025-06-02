@@ -26,7 +26,7 @@ function Profile({username}){
     }else{
         return (
             <div>
-                <Link to="/Login">Login</Link>
+                <Link to="/login">Login</Link>
             </div>
             
         );

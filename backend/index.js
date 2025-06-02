@@ -1,14 +1,15 @@
 const express = require("express");
 const cors = require("cors");
-const { UserModel, accessLevel } = require("./models/User.js")
+const { UserModel, accessLevel } = require("./models/User.js");
+const { PostModel} = require("./models/Post.js");
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
 const dotenv = require("dotenv");
     dotenv.config();
-
-
+const multer = require("multer");
+const fs = require("fs");
 try{
     console.log("Connecting to MongoDB Server");
     mongoose.connect(`mongodb+srv://root:${process.env.DB_PASSWORD}@cluster0.okymdr7.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`);
@@ -22,6 +23,7 @@ try{
 const app = express();
 const port = 4000;
 const saltRound = 11;
+const upload = multer({ dest: 'uploads/' });
 const salt = bcrypt.genSaltSync(saltRound);
 const secretPrivateKey = process.env.PRIVATE_KEY;
 
@@ -102,5 +104,15 @@ app.post("/login", async (req, res)=>{
 app.post("/logout", (req, res)=>{
    res.status(200).clearCookie("token").json({message:"ok"}); 
 });
+
+app.post("/post", upload.single("file"), async (req, res)=>{
+    // Get the image extension from the uploads
+    const {originalname, path} = req.file;
+    const parts = originalname.split('.');
+    const extension = parts[parts.length-1];
+    // Rename the original file to match the image extension
+    fs.renameSync(path, path+"."+extension);
+    res.status(200).json({message:"ok"});
+})
 
 app.listen(port);

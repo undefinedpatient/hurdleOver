@@ -104,14 +104,9 @@ app.post("/login", async (req, res)=>{
 app.post("/logout", (req, res)=>{
    res.status(200).clearCookie("token").json({message:"ok"}); 
 });
-
-app.post("/post", upload.single("file"), async (req, res)=>{
-    // Get the image extension from the uploads
-    const {originalname, path} = req.file;
-    const parts = originalname.split('.');
-    const extension = parts[parts.length-1];
-    // Rename the original file to match the image extension
-    fs.renameSync(path, path+"."+extension);
+// , upload.single("file")
+app.post("/post", async (req, res)=>{
+    console.log(req.body);
     res.status(200).json({message:"ok"});
 })
 

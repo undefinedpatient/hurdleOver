@@ -7,6 +7,7 @@ div.editor{
         outline: none;
         height: min-content;
         border: 2px solid white;
+        overflow: scroll;
         p.is-editor-empty:first-child::before {
             color: rgb(173, 173, 173);
             content: attr(data-placeholder);

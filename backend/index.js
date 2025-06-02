@@ -62,7 +62,7 @@ app.post("/register", async (req,res)=>{
         console.log(err);
         res.status(400).json({message:"error"});
     }
-})
+});
 
 app.post("/login", async (req, res)=>{
     const {username, password} = req.body;
@@ -106,8 +106,22 @@ app.post("/logout", (req, res)=>{
 });
 // , upload.single("file")
 app.post("/post", async (req, res)=>{
-    console.log(req.body);
-    res.status(200).json({message:"ok"});
-})
+    const {title, summary, category, content} = req.body;
+    try{
+        const postDoc = await PostModel.create(
+            {
+                title: title,
+                summary: summary,
+                category: category,
+                content: content
+            }
+        );
+
+        res.status(200).json({message:"ok"});
+    }catch(err){
+        console.log(err);
+        res.status(400).json({message:"error"});
+    }
+});
 
 app.listen(port);

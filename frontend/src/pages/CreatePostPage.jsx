@@ -2,19 +2,22 @@
 import { useEditor, EditorContent, FloatingMenu, BubbleMenu } from '@tiptap/react';
 import Placeholder from "@tiptap/extension-placeholder";
 import Document from '@tiptap/extension-document'
-import Image from "@tiptap/extension-image"
-import Dropcursor from '@tiptap/extension-dropcursor'
-import Paragraph from '@tiptap/extension-paragraph'
-import Text from '@tiptap/extension-text'
-import StarterKit from "@tiptap/starter-kit";
+import Image from "@tiptap/extension-image";
+import Dropcursor from "@tiptap/extension-dropcursor";
+import Paragraph from "@tiptap/extension-paragraph";
+import Text from "@tiptap/extension-text";
+import Bold from "@tiptap/extension-bold";
+import Italic from "@tiptap/extension-italic";
+import Strike from "@tiptap/extension-strike";
+
 import "../styles/tiptap.css"
+import "../styles/createPostPage.css"
 
 import Header from "./Header";
 import Footer from "./Footer";
 import Tiptap from "../components/Tiptap";
 
-import "../styles/createPostPage.css"
-import "../styles/tiptap.css"
+
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -34,7 +37,10 @@ export default function CreatePostPage(){
             Paragraph,
             Text,
             Image,
-            Dropcursor
+            Dropcursor,
+            Bold,
+            Italic,
+            Strike
         ]
     });
 

@@ -5,10 +5,11 @@ import Header from "./Header";
 import Footer from "./Footer";
 
 import "../styles/styles.css";
-import "../styles/forum.css";
+import "../styles/forumPage.css";
 
 export default function ForumPage(){
     const [posts, setPosts] = useState([]);
+    const [category, setCategory] = useState("");
     useEffect(()=>{
         async function getPosts(){
             const response = await fetch("http://localhost:4000/post",{
@@ -28,14 +29,22 @@ export default function ForumPage(){
                 <div className="filterAndSort">
                     <form className="filterSection" action="">
                         <input></input>
-                        <input></input>
+                        <select required name="dropdown" id="category" defaultValue="none" onChange={event=>setCategory(event.target.value)}>
+                            <option value="none" disabled>Select your category</option>
+                            <option value="modelling">Modelling</option>
+                            <option value="lighting">Lighting</option>
+                            <option value="texturing">Texturing</option>
+                            <option value="animating">Animating</option>
+                        </select>
                         <input type="checkbox"></input>
                         <button>Filter</button>
                     </form>
                     <form className="filterSection" action="">
-                        <input></input>
-                        <input></input>
-                        <input type="checkbox"></input>
+                        <select required name="dropdown" id="category" defaultValue="ascending" onChange={event=>setCategory(event.target.value)}>
+                            <option value="ascending">Ascending</option>
+                            <option value="descending">Descending</option>
+
+                        </select>
                         <button>Filter</button>
                     </form>
                 </div>

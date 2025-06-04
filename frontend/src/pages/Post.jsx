@@ -1,20 +1,37 @@
 import { useState } from 'react';
 import '../styles/styles.css';
 import '../styles/index.css';
-import icon from '../assets/cube.svg';
-
-function Post({title, summary, category, content}){
+import iconModelling from '../assets/cube.svg';
+import iconTexturing from '../assets/texture.svg';
+import iconLighting from '../assets/lighting.svg';
+import iconAnimating from '../assets/keyframes.svg';
+function Post({title, summary, category, updatedAt}){
+    function getCategorlURL(category){
+        switch (category) {
+        case "modelling":
+            return iconModelling;
+        case "lighting":
+            return iconLighting;
+        case "texturing":
+            return iconTexturing;
+         case "animating":
+            return iconAnimating;
+        default:
+            return iconModelling;
+}
+    }
     return (
         <>
             <div className="post">
-                <img src = {icon}></img>
+                <img src = {getCategorlURL(category)}></img>
                 <div>
-                    <h5>One of Europe’s top AI researchers raised a $13M seed to crack els</h5>
+                    <h5>{title}</h5>
                     <p>
                         <a href = "" className="author">Patient</a>
-                        <time> 2025-06-06</time>
+                        <time>&nbsp;{updatedAt}&nbsp;</time>
                     </p>
-                    <p>From OpenAIs 4o to Stable Diffusion, AI foundation models that create realistic images from a text prompt are now plentiful. In contrast, foundation models capable of generating full, coherent 3D online environments from a text prompt are only just emerging.</p>
+                    <p>Category: {category}</p>
+                    <p>{summary}</p>
                 </div>
             </div>
         </>

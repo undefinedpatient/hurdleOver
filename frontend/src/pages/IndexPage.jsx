@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect} from 'react';
 import '../styles/styles.css';
 import '../styles/index.css';
 
@@ -7,6 +7,18 @@ import Header from './Header';
 import Footer from './Footer';
 
 export default function IndexPage() {
+	const [posts, setPosts] = useState([]);
+		useEffect(()=>{
+			async function getPosts(){
+				const response = await fetch("http://localhost:4000/post",{
+					method: "GET",
+				})
+				
+				const postListJSON = await response.json();
+				setPosts(postListJSON);
+			}
+			getPosts();
+		},[]);
 	return (
 		<>
 			<Header/>
@@ -24,11 +36,11 @@ export default function IndexPage() {
 						</p>
 				</div>
 				<div className="postEntries">
-					<Post/>
-					<Post/>
-					<Post/>
-					<Post/>
-				</div>
+                    {(posts.length>0)? posts.map((post)=>{
+                        return <Post title={post.title} summary={post.summary} category={post.category} updatedAt={post.updatedAt}/>
+                    }
+                    ):<div>No posts available Q.Q </div>}
+                </div>
 				<Footer/>
 			</main>
 		</>

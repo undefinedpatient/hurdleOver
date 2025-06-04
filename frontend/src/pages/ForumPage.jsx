@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from 'react';
 
 import Post from "./Post"
 import Header from "./Header";
@@ -6,22 +6,19 @@ import Footer from "./Footer";
 
 import "../styles/styles.css";
 import "../styles/forum.css";
-import { useEffect } from "react";
-
 
 export default function ForumPage(){
     const [posts, setPosts] = useState([]);
     useEffect(()=>{
-        const response = fetch("http://localhost:4000/post",{
-            method: "GET",
-        }).then(
-            (res)=>{
-                res.json().then(
-                (info)=>{
-                    setPosts(info);
-                });
-            }
-        )    
+        async function getPosts(){
+            const response = await fetch("http://localhost:4000/post",{
+                method: "GET",
+            })
+            
+            const postListJSON = await response.json();
+            setPosts(postListJSON);
+        }
+        getPosts();
     },[]);
     return(
         <>
@@ -43,11 +40,10 @@ export default function ForumPage(){
                     </form>
                 </div>
                 <div className="postEntries">
-                    <Post/>
-                    <Post/>
-                    <Post/>
-                    <Post/>
-                    <Post/>
+                    {(posts.length>0)? posts.map((post)=>{
+                        return <Post title={post.title} summary={post.summary} category={post.category} updatedAt={post.updatedAt}/>
+                    }
+                    ):<div>No posts available Q.Q </div>}
                 </div>
                 <Footer/>
             </main>

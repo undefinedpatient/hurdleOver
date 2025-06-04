@@ -45,7 +45,7 @@ export default function CreatePostPage(){
                 placeholder: 'Write something …',
             }),
             Link.configure({
-                openOnClick: false,
+                openOnClick: true,
                 autolink: true,
                 defaultProtocol: 'https'
             })

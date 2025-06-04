@@ -1,0 +1,8 @@
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Transformed by: SVG Repo Mixer Tools -->
+<svg version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve" width="800px" height="800px" fill="#ffffff" style="--darkreader-inline-fill: var(--darkreader-background-ffffff, #181a1b); --darkreader-inline-stroke: var(--darkreader-text-ffffff, #e8e6e3);" data-darkreader-inline-fill="" stroke="#ffffff" data-darkreader-inline-stroke="">
+<g id="SVGRepo_bgCarrier" stroke-width="0"/>
+<g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+<g id="SVGRepo_iconCarrier"> <style type="text/css"> .st0{fill:none;stroke:#ffffff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;} </style>
+<style class="darkreader darkreader--sync" media="screen"/> <g> <path d="M15,10V3H4C3.4,3,3,3.4,3,4v6h7H15z"/> <path d="M22,10h7V4c0-0.6-0.4-1-1-1H17v7H22z"/> <polygon points="11,12 11,20 16,20 21,20 21,12 16,12 "/> <rect x="3" y="12" width="6" height="8"/> <rect x="23" y="12" width="6" height="8"/> <path d="M10,22H3v6c0,0.6,0.4,1,1,1h11v-7H10z"/> <path d="M17,22v7h11c0.6,0,1-0.4,1-1v-6h-7H17z"/> </g> </g>
+</svg>

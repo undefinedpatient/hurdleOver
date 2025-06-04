@@ -4,31 +4,36 @@ div.editor{
         position: relative;
         background-color: var(--layer04);
         padding: 16px;
+        min-height: 128px;
         outline: none;
         height: min-content;
         border: 2px solid white;
         overflow: scroll;
         p.is-editor-empty:first-child::before {
-            color: rgb(173, 173, 173);
+            color: rgb(166, 170, 177);
             content: attr(data-placeholder);
             float: left;
             height: 0;
             pointer-events: none;
         }
-        &:focus{
-            border: 2px solid rgb(255, 255, 255, 0.5);
+        mark {
+            background-color: #eeff00;
+            color: black;
+            border-radius: 2px;
+            margin: 0 0.2em;
+            
+            padding: 0.2em 0.3em;
         }
+        
     }
     div.buttonBar{
         & button{
             background-color: var(--layer03);
             min-width: 64px;
+            width: max-content;
             padding: 8px;
             border: 0px solid white;
                 border-width: 2px 0px 0px;
-            &:hover{
-                filter: invert(100%);
-            }
             &:nth-child(1){
                 border: 0px solid white;
                     border-width: 2px 0px 0px 2px;
@@ -38,7 +43,15 @@ div.editor{
                     border-width: 2px 2px 0px 0px;
             }
         }
+        /* The button is .active when the focused text has the relevent variant applied */
+        & button.active{
+            background-color: var(--layer05);
+        }
         
     }
-
+    /* Effects */
+    
+    
 }
+
+

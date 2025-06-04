@@ -2,16 +2,18 @@
 import { useEditor, EditorContent, FloatingMenu, BubbleMenu } from '@tiptap/react';
 import Placeholder from "@tiptap/extension-placeholder";
 import Document from '@tiptap/extension-document'
-import Image from "@tiptap/extension-image";
 import Dropcursor from "@tiptap/extension-dropcursor";
 import Paragraph from "@tiptap/extension-paragraph";
 import Text from "@tiptap/extension-text";
 import Bold from "@tiptap/extension-bold";
 import Italic from "@tiptap/extension-italic";
 import Strike from "@tiptap/extension-strike";
+import Link from '@tiptap/extension-link';
+import Highlight from "@tiptap/extension-highlight";
+import Heading from "@tiptap/extension-heading";
 
-import "../styles/tiptap.css"
-import "../styles/createPostPage.css"
+import "../styles/createPostPage.css";
+import "../styles/tiptap.css";
 
 import Header from "./Header";
 import Footer from "./Footer";
@@ -30,17 +32,23 @@ export default function CreatePostPage(){
     const nagivate = useNavigate();
     const editor = useEditor({
         extensions: [
-            Placeholder.configure({
-                placeholder: 'Write something …',
-            }),
+            
             Document,
             Paragraph,
             Text,
             Image,
+            Bold, Italic, Strike,
+            Heading.configure({ levels: [1, 2, 3] }),
+            Highlight.configure({ multicolor: true }),
             Dropcursor,
-            Bold,
-            Italic,
-            Strike
+            Placeholder.configure({
+                placeholder: 'Write something …',
+            }),
+            Link.configure({
+                openOnClick: false,
+                autolink: true,
+                defaultProtocol: 'https'
+            })
         ]
     });
 

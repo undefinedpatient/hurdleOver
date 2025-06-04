@@ -3,7 +3,7 @@ import '../styles/styles.css';
 import '../styles/index.css';
 import icon from '../assets/cube.svg';
 
-function Post(){
+function Post({title, summary, category, content}){
     return (
         <>
             <div className="post">

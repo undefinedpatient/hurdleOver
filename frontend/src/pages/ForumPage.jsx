@@ -6,9 +6,23 @@ import Footer from "./Footer";
 
 import "../styles/styles.css";
 import "../styles/forum.css";
+import { useEffect } from "react";
 
 
 export default function ForumPage(){
+    const [posts, setPosts] = useState([]);
+    useEffect(()=>{
+        const response = fetch("http://localhost:4000/post",{
+            method: "GET",
+        }).then(
+            (res)=>{
+                res.json().then(
+                (info)=>{
+                    setPosts(info);
+                });
+            }
+        )    
+    },[]);
     return(
         <>
             <Header/>

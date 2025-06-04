@@ -104,7 +104,11 @@ app.post("/login", async (req, res)=>{
 app.post("/logout", (req, res)=>{
    res.status(200).clearCookie("token").json({message:"ok"}); 
 });
-// , upload.single("file")
+app.get("/post", async (req, res)=>{
+    const posts = await PostModel.find();
+    res.status(200).json(posts);
+});
+
 app.post("/post", async (req, res)=>{
     const {title, summary, category, content} = req.body;
     try{

@@ -41,10 +41,4 @@ main.indexPage{
         
         height: 1280px;
     }
-
-    & footer{
-        display: block;
-        height: 256px;
-        background-color: var(--layer01);
-    }
 }

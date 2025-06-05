@@ -1,0 +1,21 @@
+footer{
+    position: relative;
+    display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    min-height: 128px;
+    width: 100%;
+    padding: 32px;
+    background-color: var(--layer01);
+    table{
+        display:block;
+        position: relative;
+        width: max-content;
+        & *{
+            position: relative;
+            width: 320px;
+        }
+    }
+}
+

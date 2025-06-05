@@ -62,9 +62,4 @@ main.forumPage{
                 filter: invert(100%);
             }
         }
-    & footer{
-        display: block;
-        height: 256px;
-        background-color: var(--layer01);
-    }
 }

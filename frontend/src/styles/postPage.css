@@ -4,6 +4,7 @@ div.postPage{
         align-items: center;
         background-image: url("../assets/background0.png");
         min-height: 100vh;
+        background-size: cover;
     div.post{
         position: relative;
         display: block;
@@ -23,10 +24,12 @@ div.postPage{
             padding: 24px;
 
         }
-        & .date{
-            
-        }
-        & .author{
+        & .author, .date{
+            position: relative;
+            display: block;
+            width: 100%;
+            overflow: hidden; /* Hide any overflow */
+            padding: 0px 24px;
         }
 
         & .content{
@@ -41,6 +44,7 @@ div.postPage{
     div.comment{
         position: relative;
         display: block;
+        margin-bottom: 96px;
         background-color: rgba(0,0,0,0.5);
         width: clamp(560px, 70vw, 960px);
         padding: 16px;

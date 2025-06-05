@@ -4,7 +4,7 @@ div.authPage{
         align-items: center;
     width: 100vw;
     height: 100vh;
-    background-image: url("../assets/background1.png");
+    background-image: url("../assets/background0.png");
     overflow: hidden;
     transition: all 0.1s ease-in-out;
     &::before{

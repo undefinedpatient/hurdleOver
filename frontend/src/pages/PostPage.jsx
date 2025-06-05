@@ -19,7 +19,6 @@ export default function PostPage(){
             );
             const postInfo = await response.json();
             await setPost(postInfo);
-            console.log(postInfo);
         }
         getPost();
     }
@@ -29,7 +28,7 @@ export default function PostPage(){
             <Header/>
             <div className="post">
                 <h2 className="title">{post.title}</h2>
-                <h4 className="author">{post.author}</h4>
+                <h5 className="author">{post.author}</h5>
                 <time className="date">&nbsp;Created At: {post.createdAt}&nbsp;&nbsp;Updated At: {post.updatedAt}&nbsp;</time>
                 <div className="content" dangerouslySetInnerHTML={{__html:post.content}}></div>
             </div>

@@ -7,7 +7,7 @@ main.createPostPage{
     height: max-content;
     width: 100vw;
     background-color: rgb(67, 112, 151);
-    background-image: url("../assets/background1.png");
+    background-image: url("../assets/background0.png");
     background-size: cover;
     & form{
         position: relative;

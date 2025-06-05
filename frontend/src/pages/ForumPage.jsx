@@ -45,7 +45,7 @@ export default function ForumPage(){
                             <option value="descending">Descending</option>
 
                         </select>
-                        <button>Filter</button>
+                        <button>Sort</button>
                     </form>
                 </div>
                 <div className="postEntries">

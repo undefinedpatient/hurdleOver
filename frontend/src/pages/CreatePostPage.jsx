@@ -20,8 +20,10 @@ import Footer from "./Footer";
 import Tiptap from "../components/Tiptap";
 
 
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+
+import {UserContext} from "../UserContext.jsx";
 
 export default function CreatePostPage(){
     // Local Variables
@@ -67,7 +69,8 @@ export default function CreatePostPage(){
                 category:category,
                 content: editor.getHTML()
             }),
-            headers: {'Content-Type':'application/json'}
+            headers: {'Content-Type':'application/json'},
+            credentials: "include"
         });
         if(response.status==200){
             nagivate("/forum");
@@ -87,9 +90,9 @@ export default function CreatePostPage(){
                         <option value="texturing">Texturing</option>
                         <option value="animating">Animating</option>
                     </select>
-                    <input required type="text" id="summary" placeholder="Summary (10-50 words)" onChange={event=>setSummary(event.target.value)}></input>
+                    <input required type="text" id="summary" placeholder="Summary (max 120 characters)" onChange={event=>setSummary(event.target.value) } maxLength={120}></input>
                     <Tiptap editor={editor}/>
-                    <button>Post</button>
+                    <button type="submit">Post</button>
                 </form>
             </main>
             <Footer/>

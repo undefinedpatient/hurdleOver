@@ -105,17 +105,29 @@ app.post("/logout", (req, res)=>{
    res.status(200).clearCookie("token").json({message:"ok"}); 
 });
 app.get("/post", async (req, res)=>{
-    const posts = await PostModel.find();
+    const posts = await PostModel.find().populate("author", ['username']).sort({"createdAt":-1}).limit(20);
     res.status(200).json(posts);
 });
 
 app.post("/post", async (req, res)=>{
     const {title, summary, category, content} = req.body;
+    const {token} = req.cookies;
+    let userId = "";
+    if(token==null||token.length==0){
+        res.status(401).json({message: "noToken"});
+    }
+    else{
+        jwt.verify(token, secretPrivateKey, {}, (err,info)=>{
+        if(err) throw err;
+        userId = info.id;
+        });
+    }
     try{
         const postDoc = await PostModel.create(
             {
                 title: title,
                 summary: summary,
+                author: userId,
                 category: category,
                 content: content
             }

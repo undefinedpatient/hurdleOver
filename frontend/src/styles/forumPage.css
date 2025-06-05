@@ -14,6 +14,7 @@ main.forumPage{
         background-image: none;
         background-color: var(--layer04);
         width: 100%;
+        min-height: 100vh;
         height: min-content;
         padding: 32px;
         & div.post{

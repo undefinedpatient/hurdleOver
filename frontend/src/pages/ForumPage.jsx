@@ -50,7 +50,7 @@ export default function ForumPage(){
                 </div>
                 <div className="postEntries">
                     {(posts.length>0)? posts.map((post)=>{
-                        return <Post title={post.title} summary={post.summary} category={post.category} updatedAt={post.updatedAt}/>
+                        return <Post title={post.title} author={post.author.username} summary={post.summary} category={post.category} updatedAt={post.updatedAt}/>
                     }
                     ):<div>No posts available Q.Q </div>}
                 </div>

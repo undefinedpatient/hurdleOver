@@ -1,6 +1,7 @@
 div.postPage{
     display: flex;
         flex-direction: column;
+        justify-content: space-between;
         align-items: center;
         background-image: url("../assets/background0.png");
         min-height: 100vh;
@@ -11,6 +12,7 @@ div.postPage{
         background-color: rgba(0,0,0,0.5);
         width: clamp(560px, 70vw, 960px);
         padding: 24px;
+        overflow-y: scroll;
         margin: 64px 64px 12px 64px;
         border: 2px solid white;
         & h2.title{
@@ -44,7 +46,7 @@ div.postPage{
     div.comment{
         position: relative;
         display: block;
-        margin-bottom: 96px;
+        margin-bottom: 32px;
         background-color: rgba(0,0,0,0.5);
         width: clamp(560px, 70vw, 960px);
         padding: 16px;

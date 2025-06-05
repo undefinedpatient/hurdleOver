@@ -12,10 +12,9 @@ function Profile({username}){
             <>
                 <Link to="/createpost">Create New Post</Link>
                 <div className="dropdown">
-                    <Link to="/profile">{username}</Link>
+                    <Link to="/settings">{username}</Link>
                     <div className="dropdownContent">
                         <Link to="/myposts">MyPosts</Link>
-                        <Link to="/profile">Setting</Link>
                         <Link to="/login" onClick={logout}>Logout</Link>
                     </div>
                 </div>

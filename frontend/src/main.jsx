@@ -11,6 +11,7 @@ import MyPostsPage from './pages/MyPostsPage.jsx';
 import PostPage from './pages/PostPage.jsx';
 import { UserContextProvider } from './UserContext.jsx';
 import CreatePostPage from './pages/CreatePostPage.jsx';
+import SettingPage from './pages/settingPage.jsx';
 
 const router = createBrowserRouter([
 	{
@@ -26,6 +27,11 @@ const router = createBrowserRouter([
 	{
 		path: '/login',
 		element: <LoginPage/>,
+		errorElement: <NotFoundPage/>
+	},
+	{
+		path: '/settings',
+		element: <SettingPage/>,
 		errorElement: <NotFoundPage/>
 	},
 	{

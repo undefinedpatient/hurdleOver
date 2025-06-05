@@ -1,0 +1,49 @@
+div.postPage{
+    display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-image: url("../assets/background0.png");
+        min-height: 100vh;
+    div.post{
+        position: relative;
+        display: block;
+        background-color: rgba(0,0,0,0.5);
+        width: clamp(560px, 70vw, 960px);
+        padding: 24px;
+        margin: 64px 64px 12px 64px;
+        border: 2px solid white;
+        & h2.title{
+            position: relative;
+            display: block;
+            width: 100%;
+            line-break: normal;
+            text-overflow: ellipsis; /* Or ellipsis if you want truncation */
+            white-space: normal; /* Allow text to wrap */
+            overflow: hidden; /* Hide any overflow */
+            padding: 24px;
+
+        }
+        & .date{
+            
+        }
+        & .author{
+        }
+
+        & .content{
+            position: relative;
+            display: block;
+
+            border-radius: 4px;
+            width: 100%;
+            padding: 16px;
+        }
+    }
+    div.comment{
+        position: relative;
+        display: block;
+        background-color: rgba(0,0,0,0.5);
+        width: clamp(560px, 70vw, 960px);
+        padding: 16px;
+        border: 2px solid white;
+    }
+}

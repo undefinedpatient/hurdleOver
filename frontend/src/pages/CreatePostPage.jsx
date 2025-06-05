@@ -16,7 +16,7 @@ import "../styles/createPostPage.css";
 import "../styles/tiptap.css";
 
 import Header from "./Header";
-import Footer from "./Footer";
+import Footer from "../components/Footer.jsx";
 import Tiptap from "../components/Tiptap";
 
 

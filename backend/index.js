@@ -8,8 +8,8 @@ const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
 const dotenv = require("dotenv");
     dotenv.config();
-const multer = require("multer");
-const fs = require("fs");
+const {format} = require("date-fns");
+
 try{
     console.log("Connecting to MongoDB Server");
     mongoose.connect(`mongodb+srv://root:${process.env.DB_PASSWORD}@cluster0.okymdr7.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`);
@@ -23,7 +23,6 @@ try{
 const app = express();
 const port = 4000;
 const saltRound = 11;
-const upload = multer({ dest: 'uploads/' });
 const salt = bcrypt.genSaltSync(saltRound);
 const secretPrivateKey = process.env.PRIVATE_KEY;
 
@@ -132,12 +131,25 @@ app.post("/post", async (req, res)=>{
                 content: content
             }
         );
-
-        res.status(200).json({message:"ok"});
+        res.status(200).json({postDoc});
     }catch(err){
         console.log(err);
         res.status(400).json({message:"error"});
     }
 });
 
+app.get("/post/:id", async (req, res)=>{
+    const postInfo = await PostModel.findById(req.params.id).populate("author", ['username']);
+    const post = {
+        title: postInfo.title,
+        author: postInfo.author.username,
+        category: postInfo.category,
+        content: postInfo.content,
+        createdAt: format(postInfo.createdAt,"Pp"),
+        updatedAt: format(postInfo.updatedAt,"Pp")
+    }
+    console.log(postInfo);
+    console.log(post);
+    res.status(200).json(post);
+});
 app.listen(port);

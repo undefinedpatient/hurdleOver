@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from 'react';
 
-import Post from "./Post"
-import Header from "./Header";
-import Footer from "./Footer";
+import Post from "../components/Post.jsx"
+import Header from "./Header.jsx";
+import Footer from "../components/Footer.jsx";
 
 import "../styles/styles.css";
 import "../styles/forumPage.css";
@@ -50,7 +50,7 @@ export default function ForumPage(){
                 </div>
                 <div className="postEntries">
                     {(posts.length>0)? posts.map((post)=>{
-                        return <Post title={post.title} author={post.author.username} summary={post.summary} category={post.category} updatedAt={post.updatedAt}/>
+                        return <Post _id={post._id} title={post.title} author={post.author.username} summary={post.summary} category={post.category} updatedAt={post.updatedAt}/>
                     }
                     ):<div>No posts available Q.Q </div>}
                 </div>

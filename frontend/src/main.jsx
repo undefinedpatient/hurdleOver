@@ -8,6 +8,7 @@ import RegisterPage from './pages/RegisterPage.jsx';
 import NotFoundPage from './pages/NotFoundPage.jsx';
 import ForumPage from './pages/ForumPage.jsx';
 import MyPostsPage from './pages/MyPostsPage.jsx';
+import PostPage from './pages/PostPage.jsx';
 import { UserContextProvider } from './UserContext.jsx';
 import CreatePostPage from './pages/CreatePostPage.jsx';
 
@@ -40,6 +41,11 @@ const router = createBrowserRouter([
 	{
 		path: '/createpost',
 		element: <CreatePostPage/>,
+		errorElement: <NotFoundPage/>
+	},
+	{
+		path: "/post/:id",
+		element: <PostPage/>,
 		errorElement: <NotFoundPage/>
 	}
 ]);

@@ -7,7 +7,7 @@ main.indexPage{
     & div.background{
         position: relative;
         display: block;
-        background-image: url("../assets/background1.png");
+        background-image: url("../assets/background0.png");
         position: relative;
         height: 80vh;
         width: 100vw;
@@ -40,34 +40,6 @@ main.indexPage{
         width: 100vw;
         
         height: 1280px;
-    }
-
-    & div.post{
-        position: relative;
-        display: grid;
-            grid-template-columns: 0.16fr 1fr;
-        width: 100%;
-        max-width: 900px;
-        height: min-content;
-        padding: 16px;
-        margin: 8px;
-        border: 1px double rgb(255, 255, 255);
-        background-color: rgba(0,0,0,0.2);
-        transition: all 0.2s ease-in-out;
-        & img{
-            width: 100%;
-            height: 100%;
-            padding: 8px;
-            object-fit: contain;
-        }
-        & div{
-            display: block;
-            padding: 16px;
-        }
-        &:hover{
-            scale: 1.01;
-        }
-
     }
 
     & footer{

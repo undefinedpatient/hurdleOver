@@ -2,9 +2,9 @@ import { useState, useEffect} from 'react';
 import '../styles/styles.css';
 import '../styles/index.css';
 
-import Post from './Post';
+import Post from '../components/Post';
 import Header from './Header';
-import Footer from './Footer';
+import Footer from '../components/Footer';
 
 export default function IndexPage() {
 	const [posts, setPosts] = useState([]);
@@ -37,7 +37,7 @@ export default function IndexPage() {
 				</div>
 				<div className="postEntries">
                     {(posts.length>0)? posts.map((post)=>{
-                        return <Post title={post.title} author={post.author.username} summary={post.summary} category={post.category} updatedAt={post.updatedAt}/>
+                        return <Post _id={post._id} title={post.title} author={post.author.username} summary={post.summary} category={post.category} updatedAt={post.updatedAt}/>
                     }
                     ):<div>No posts available Q.Q </div>}
                 </div>

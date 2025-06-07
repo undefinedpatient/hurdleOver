@@ -107,7 +107,6 @@ app.get("/post", async (req, res)=>{
     const posts = await PostModel.find().populate("author", ['username']).sort({"createdAt":-1}).limit(20);
     res.status(200).json(posts);
 });
-
 app.post("/post", async (req, res)=>{
     const {title, summary, category, content} = req.body;
     const {token} = req.cookies;
@@ -151,5 +150,11 @@ app.get("/post/:id", async (req, res)=>{
     console.log(postInfo);
     console.log(post);
     res.status(200).json(post);
+});
+
+app.put("/changeProfileInfo/:userId", async (req, res)=>{
+    const userId = req.params.userId;
+    const userInfo = await UserModel.findByIdAndUpdate(userId, {username: req.body.username});
+    res.status(200).clearCookie("token").json({message:"ok"}); 
 });
 app.listen(port);

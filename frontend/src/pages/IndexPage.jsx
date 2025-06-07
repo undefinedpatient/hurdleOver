@@ -35,12 +35,6 @@ export default function IndexPage() {
 							Join us to overcome hurdles, exchange ideas, and bring your pixel-perfect visions to life!
 						</p>
 				</div>
-				<div className="postEntries">
-                    {(posts.length>0)? posts.map((post)=>{
-                        return <Post _id={post._id} title={post.title} author={post.author.username} summary={post.summary} category={post.category} updatedAt={post.updatedAt}/>
-                    }
-                    ):<div>No posts available Q.Q </div>}
-                </div>
 				<Footer/>
 			</main>
 		</>

@@ -28,18 +28,6 @@ export default function ForumPage(){
                 <h1>Forum</h1>
                 <div className="filterAndSort">
                     <form className="filterSection" action="">
-                        <input></input>
-                        <select required name="dropdown" id="category" defaultValue="none" onChange={event=>setCategory(event.target.value)}>
-                            <option value="none" disabled>Select your category</option>
-                            <option value="modelling">Modelling</option>
-                            <option value="lighting">Lighting</option>
-                            <option value="texturing">Texturing</option>
-                            <option value="animating">Animating</option>
-                        </select>
-                        <input type="checkbox"></input>
-                        <button>Filter</button>
-                    </form>
-                    <form className="filterSection" action="">
                         <select required name="dropdown" id="category" defaultValue="ascending" onChange={event=>setCategory(event.target.value)}>
                             <option value="ascending">Ascending</option>
                             <option value="descending">Descending</option>

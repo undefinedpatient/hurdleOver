@@ -91,7 +91,6 @@ export default function Tiptap({ editor }){
                 </button>
             </div>
             <EditorContent editor={editor} id="editor"/>
-            <p>*It is recommended to add your image/video link above to clarify the issues.</p>
         </div>
     );
 }

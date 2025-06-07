@@ -34,6 +34,7 @@ div.editor{
             padding: 8px;
             border: 0px solid white;
                 border-width: 2px 0px 0px;
+            cursor: pointer;
             &:nth-child(1){
                 border: 0px solid white;
                     border-width: 2px 0px 0px 2px;
@@ -42,6 +43,9 @@ div.editor{
                 border: 0px solid white;
                     border-width: 2px 2px 0px 0px;
             }
+        }
+        & button:hover{
+            filter: invert(100%);
         }
         /* The button is .active when the focused text has the relevent variant applied */
         & button.active{

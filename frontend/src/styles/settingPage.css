@@ -11,7 +11,7 @@ div.settingPage{
             flex-direction: column;
             align-items: center;
             row-gap: 16px;
-        padding: 16px;
+        padding: 32px;
         font-weight: bold;
         & span{
             display: flex;
@@ -70,6 +70,39 @@ div.settingPage{
             background-color: rgba(0,0,0,0.5);
         }
 
+    }
+    & div.confirmDeletionWindow{
+        z-index: 1;
+        position: absolute;
+            left: 50%;
+            top: 50%;
+        visibility: hidden;
+        display: flex;
+            flex-direction: column;
+            row-gap: 8px;
+            justify-content: center;
+        align-self: center;
+        background-color: transparent;
+        backdrop-filter: blur(16px);
+        margin: -120px -180px;
+        width: 360px;
+        height: 240px;
+        border: 2px solid rgb(255, 0, 0);
+        &.active{
+            visibility:visible;
+        }
+        & button{
+            background-color: var(--layer04);
+            border: 2px solid rgb(255, 255, 255);
+            min-width: 64px;
+            max-width: 160px;
+            width: 128px;
+            height: fit-content;
+            padding: 4px;
+            &:hover{
+                filter: invert(100%);
+            }
+        }
     }
 }
 

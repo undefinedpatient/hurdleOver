@@ -51,6 +51,21 @@ export default function SettingPage(){
         }
         
     }
+    function onDeleteAccountClicked(event){
+        event.preventDefault();
+        document.getElementsByClassName("confirmDeletionWindow")[0].classList.add("active");
+    }
+    function onDeleteAccountCancelClicked(event){
+        event.preventDefault();
+        document.getElementsByClassName("confirmDeletionWindow")[0].classList.remove("active");
+    }
+    async function onDeleteAccountConfirmClicked(event){
+        const response = await fetch("http://localhost:4000/deleteProfile/:id",{
+            method: "DELETE",
+        });
+        
+        nagivate("/");
+    }
     return (
         <div className="settingPage">
             <Header/>
@@ -62,9 +77,17 @@ export default function SettingPage(){
                         <span><input className="username"></input><button onClick={onChangeNameClicked}>Change Name</button></span>
                         <span>Email: {"Not Available (Dont have money for db)"}</span>
                         <span><input disabled placeholder="Not Available"></input><button>Change Email</button></span>
-                        <span><button>Delete Account</button></span>
+                        <span><button onClick={onDeleteAccountClicked}>Delete Account</button></span>
                     </form>
                 </div>
+            </div>
+            <div className={"confirmDeletionWindow"}>
+                <p>Confirm Account Deletion?</p>
+                <span>
+                    <button>Confirm</button>
+                    <button onClick={onDeleteAccountCancelClicked}>Cancel</button>
+                </span>
+                
             </div>
             
         </div>

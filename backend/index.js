@@ -157,4 +157,9 @@ app.put("/changeProfileInfo/:userId", async (req, res)=>{
     const userInfo = await UserModel.findByIdAndUpdate(userId, {username: req.body.username});
     res.status(200).clearCookie("token").json({message:"ok"}); 
 });
+
+app.delete("/deleteProfile/:userId", async (req, res)=>{
+    const userId = req.params.userId;
+    const userInfo = await UserModel.findByIdAndDelete(userId);
+});
 app.listen(port);

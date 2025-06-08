@@ -60,11 +60,13 @@ export default function SettingPage(){
         document.getElementsByClassName("confirmDeletionWindow")[0].classList.remove("active");
     }
     async function onDeleteAccountConfirmClicked(event){
-        const response = await fetch("http://localhost:4000/deleteProfile/:id",{
+        const response = await fetch(`http://localhost:4000/deleteProfile/${userInfo.id}`,{
             method: "DELETE",
         });
-        
-        nagivate("/");
+        const userInfo = await response.json();
+        if(response.status==200){
+            nagivate("/login");
+        }
     }
     return (
         <div className="settingPage">
@@ -84,7 +86,7 @@ export default function SettingPage(){
             <div className={"confirmDeletionWindow"}>
                 <p>Confirm Account Deletion?</p>
                 <span>
-                    <button>Confirm</button>
+                    <button onClick={onDeleteAccountConfirmClicked}>Confirm</button>
                     <button onClick={onDeleteAccountCancelClicked}>Cancel</button>
                 </span>
                 

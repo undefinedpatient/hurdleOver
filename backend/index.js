@@ -31,17 +31,26 @@ app.use(cors({credentials:true,origin:"http://localhost:5173"}))
 app.use(express.json());
 app.use(cookieParser());
 //
-app.get("/profile", (req, res)=>{
+app.get("/profile", async (req, res)=>{
     const {token} = req.cookies;
+    // Local Variable to store the user id, needed to verify if the user still exist in db
+    let cookieInfo = {};
     if(token==null||token.length==0){
         res.status(401).json({message: "noToken"});
     }
     else{
         jwt.verify(token, secretPrivateKey, {}, (err,info)=>{
         if(err) throw err;
-        res.status(200).json(info);
+        cookieInfo = info;
+
         });
     }
+
+    const userInfo = await UserModel.findById(cookieInfo.id);
+    if(userInfo == null){
+        res.status(401).json({message: "userNotExist"});
+    }
+    res.status(200).json(info);
     
 });
 
@@ -160,6 +169,14 @@ app.put("/changeProfileInfo/:userId", async (req, res)=>{
 
 app.delete("/deleteProfile/:userId", async (req, res)=>{
     const userId = req.params.userId;
-    const userInfo = await UserModel.findByIdAndDelete(userId);
+    try {
+        const userInfo = await UserModel.findByIdAndDelete(userId);
+        const postDeletion = await UserModel.deleteMany({author: userId});
+    } catch (error) {
+        console.log(error);
+        res.status(400).clearCookie("token");
+    }
+    
+    res.status(200).clearCookie("token").json({message:"ok"}); 
 });
 app.listen(port);

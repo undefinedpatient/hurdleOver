@@ -40,8 +40,8 @@ app.get("/profile", async (req, res)=>{
     }
     else{
         jwt.verify(token, secretPrivateKey, {}, (err,info)=>{
-        if(err) throw err;
-        cookieInfo = info;
+            if(err) throw err;
+            cookieInfo = info;
 
         });
     }
@@ -50,7 +50,7 @@ app.get("/profile", async (req, res)=>{
     if(userInfo == null){
         res.status(401).json({message: "userNotExist"});
     }
-    res.status(200).json(info);
+    res.status(200).json(cookieInfo);
     
 });
 
@@ -170,8 +170,9 @@ app.put("/changeProfileInfo/:userId", async (req, res)=>{
 app.delete("/deleteProfile/:userId", async (req, res)=>{
     const userId = req.params.userId;
     try {
+        const postDeletion = await PostModel.deleteMany({author: userId});
         const userInfo = await UserModel.findByIdAndDelete(userId);
-        const postDeletion = await UserModel.deleteMany({author: userId});
+        
     } catch (error) {
         console.log(error);
         res.status(400).clearCookie("token");

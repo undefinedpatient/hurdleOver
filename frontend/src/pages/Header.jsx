@@ -55,7 +55,6 @@ export default function Header(){
             )
             const info = await res.json();
             if(res.status != 200 || info == null || info?.username==null){
-                nagivate("/login");
                 setUserInfo({});
                 
                 return;

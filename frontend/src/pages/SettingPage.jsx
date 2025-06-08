@@ -63,7 +63,7 @@ export default function SettingPage(){
         const response = await fetch(`http://localhost:4000/deleteProfile/${userInfo.id}`,{
             method: "DELETE",
         });
-        const userInfo = await response.json();
+        const resJson = await response.json();
         if(response.status==200){
             nagivate("/login");
         }

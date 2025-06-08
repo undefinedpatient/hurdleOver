@@ -113,7 +113,28 @@ app.post("/logout", (req, res)=>{
    res.status(200).clearCookie("token").json({message:"ok"}); 
 });
 app.get("/post", async (req, res)=>{
-    const posts = await PostModel.find().populate("author", ['username']).sort({"createdAt":-1}).limit(20);
+    // Bubble Sort an input list of posts in descending order
+    function bubbleSortInvert(postlist){
+        for(let i = 0; i<postlist.length; i++){
+            for(let j = 0; j<postlist.length-i-1; i++){
+                let temp = postlist[j];
+                if(postlist[j]["createdAt"]>postlist[j+1]["createdAt"]){
+                    postlist[j] = postlist[j+1];
+                    postlist[j+1] = temp;
+                }
+            }
+        }
+        return postlist;
+    }
+    let posts = await PostModel.find().populate("author", ['username']).sort({"createdAt":-1}).limit(20);
+    if(posts.length==0){
+        res.status(200).json({});
+    }
+    if(req.query.order!=null&&req.query.order=="descending"){
+
+        posts = bubbleSortInvert(posts);
+    }
+    // console.log(posts);
     res.status(200).json(posts);
 });
 app.post("/post", async (req, res)=>{
@@ -156,8 +177,6 @@ app.get("/post/:id", async (req, res)=>{
         createdAt: format(postInfo.createdAt,"Pp"),
         updatedAt: format(postInfo.updatedAt,"Pp")
     }
-    console.log(postInfo);
-    console.log(post);
     res.status(200).json(post);
 });
 

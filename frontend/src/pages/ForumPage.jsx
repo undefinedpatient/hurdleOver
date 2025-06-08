@@ -10,9 +10,12 @@ import "../styles/forumPage.css";
 export default function ForumPage(){
     const [posts, setPosts] = useState([]);
     const [category, setCategory] = useState("");
+    const [order, setOrder] = useState("ascending");
     useEffect(()=>{
         async function getPosts(){
-            const response = await fetch("http://localhost:4000/post",{
+            const response = await fetch("http://localhost:4000/post?" + new URLSearchParams({
+                order: order,
+            }).toString(),{
                 method: "GET",
             })
             
@@ -20,7 +23,8 @@ export default function ForumPage(){
             setPosts(postListJSON);
         }
         getPosts();
-    },[]);
+    },[order]);
+    
     return(
         <>
             <Header/>
@@ -28,12 +32,11 @@ export default function ForumPage(){
                 <h1>Forum</h1>
                 <div className="filterAndSort">
                     <form className="filterSection" action="">
-                        <select required name="dropdown" id="category" defaultValue="ascending" onChange={event=>setCategory(event.target.value)}>
+                        <select required name="dropdown" id="category" defaultValue="ascending" onChange={event=>setOrder(event.target.value)}>
                             <option value="ascending">Ascending</option>
                             <option value="descending">Descending</option>
 
                         </select>
-                        <button>Sort</button>
                     </form>
                 </div>
                 <div className="postEntries">

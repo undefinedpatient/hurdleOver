@@ -31,6 +31,7 @@ export default function EditPostPage(){
     const [title,setTitle] = useState("");
     const [category,setCategory] = useState("");
     const [summary,setSummary] = useState("");
+    const [content, setContent] = useState("");
     //
     const params = useParams();
     const nagivate = useNavigate();
@@ -67,10 +68,14 @@ export default function EditPostPage(){
             setTitle(postInfo.title);
             setCategory(postInfo.category);
             setSummary(postInfo.summary);
-            editor.commands.setContent(postInfo.content);
+            setContent(postInfo.content);
+            
+            console.log(postInfo.content);
         }
+        
         setPostInfo();
-    },[]);
+        editor.commands.setContent(content);
+    },[content]);
 
     async function onCreatePost(event){
         event.preventDefault();
@@ -80,8 +85,9 @@ export default function EditPostPage(){
         data.set("category", category);
         data.set("content", editor.getHTML());
         const response = await fetch("http://localhost:4000/post", {
-            method: "POST",
+            method: "PUT",
             body: JSON.stringify({
+                postId: params.id,
                 title:title,
                 summary:summary,
                 category:category,

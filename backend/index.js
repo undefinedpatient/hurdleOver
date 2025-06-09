@@ -176,6 +176,39 @@ app.post("/post", async (req, res)=>{
         res.status(400).json({message:"error"});
     }
 });
+app.put("/post", async (req, res)=>{
+    const {title, summary, category, content, postId} = req.body;
+    const {token} = req.cookies;
+    let userId = "";
+    if(token==null||token.length==0){
+        res.status(401).json({message: "noToken"});
+        return;
+    }
+    else{
+        jwt.verify(token, secretPrivateKey, {}, (err,info)=>{
+        if(err) throw err;
+            userId = info.id;
+        });
+    }
+    try{
+        const postDoc = await PostModel.findOneAndUpdate(
+            {
+                _id: postId
+            },
+            {
+                title: title,
+                summary: summary,
+                author: userId,
+                category: category,
+                content: content
+            }
+        );
+        res.status(200).json({postDoc});
+    }catch(err){
+        console.log(err);
+        res.status(400).json({message:"error"});
+    }
+});
 
 // Used to retreive the post information given the post id in the db
 app.get("/post/:id", async (req, res)=>{

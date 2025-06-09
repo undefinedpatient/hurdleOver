@@ -15,6 +15,7 @@ export default function ForumPage(){
         async function getPosts(){
             const response = await fetch("http://localhost:4000/post?" + new URLSearchParams({
                 order: order,
+                category: category
             }).toString(),{
                 method: "GET",
             })
@@ -23,7 +24,7 @@ export default function ForumPage(){
             setPosts(postListJSON);
         }
         getPosts();
-    },[order]);
+    },[order, category]);
     
     return(
         <>
@@ -35,7 +36,13 @@ export default function ForumPage(){
                         <select required name="dropdown" id="category" defaultValue="ascending" onChange={event=>setOrder(event.target.value)}>
                             <option value="ascending">Ascending</option>
                             <option value="descending">Descending</option>
-
+                        </select>
+                        <select name="dropdown" id="category" defaultValue="modelling" onChange={event=>setCategory(event.target.value)}>
+                            <option value="">No Specific Category</option>
+                            <option value="modelling">Modelling</option>
+                            <option value="lighting">Lighting</option>
+                            <option value="animating">Animating</option>
+                            <option value="texturing">Texturing</option>
                         </select>
                     </form>
                 </div>

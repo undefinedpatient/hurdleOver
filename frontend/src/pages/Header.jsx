@@ -1,7 +1,7 @@
 import '../styles/styles.css';
 import '../styles/header.css';
 import logo from '../assets/logo.svg';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../UserContext';
 
@@ -44,7 +44,6 @@ export default function Header(){
     // Context
     const {userInfo, setUserInfo} = useContext(UserContext);
     // 
-    const nagivate = useNavigate();
     useEffect(()=>{
         async function checkLoginStatus(){
             const res = await fetch('http://localhost:4000/profile',

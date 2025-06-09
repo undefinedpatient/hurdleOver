@@ -93,7 +93,7 @@ export default function PostPage(){
                 <ReactLink className={
                     "authorEditLink".concat((userInfo.username==post.author)?" active":"")
 
-                } to="/"></ReactLink>
+                } to={"/editpost/".concat(params.id)}></ReactLink>
                 <div className="buttonBar">
                     <button className="buttonComment" onClick={toggleCommentEditor}></button>
                     <button className="upvote"></button>

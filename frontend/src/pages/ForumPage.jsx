@@ -32,12 +32,12 @@ export default function ForumPage(){
             <main className="forumPage">
                 <h1>Forum</h1>
                 <div className="filterAndSort">
-                    <form className="filterSection" action="">
+                    <form className="filterAndSortSectionForm" action="">
                         <select required name="dropdown" id="category" defaultValue="ascending" onChange={event=>setOrder(event.target.value)}>
                             <option value="ascending">Ascending</option>
                             <option value="descending">Descending</option>
                         </select>
-                        <select name="dropdown" id="category" defaultValue="modelling" onChange={event=>setCategory(event.target.value)}>
+                        <select name="dropdown" id="category" defaultValue="" onChange={event=>setCategory(event.target.value)}>
                             <option value="">No Specific Category</option>
                             <option value="modelling">Modelling</option>
                             <option value="lighting">Lighting</option>

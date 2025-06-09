@@ -36,6 +36,11 @@ export default function Post({_id, title, author, summary, category, updatedAt})
                     </p>
                     <p>Category: {String(category).charAt(0).toUpperCase().concat(String(category).slice(1))}</p>
                     <p>{summary}</p>
+                    <div className="postData">
+                        <span id="commentCount">Comments: {0}</span>
+                        <span id="upvoteCount">Upvotes: {0}</span>
+                        <span id="downvoteCount">Downvotes: {0}</span>
+                    </div>
                 </div>
             </Link>
         </div>

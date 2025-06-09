@@ -21,16 +21,18 @@ import Tiptap from "../components/Tiptap";
 
 
 import { useState, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import {UserContext} from "../UserContext.jsx";
+import { useEffect } from 'react';
 
-export default function CreatePostPage(){
+export default function EditPostPage(){
     // Local Variables
     const [title,setTitle] = useState("");
     const [category,setCategory] = useState("");
     const [summary,setSummary] = useState("");
     //
+    const params = useParams();
     const nagivate = useNavigate();
     const editor = useEditor({
         extensions: [
@@ -51,8 +53,24 @@ export default function CreatePostPage(){
                 autolink: true,
                 defaultProtocol: 'https'
             })
-        ]
+        ],
+        content: ""
     });
+    // Fetch the post info upon refresh
+    useEffect(()=>{
+        async function setPostInfo(){
+            const response = await fetch("http://localhost:4000/post/".concat(params.id), {
+                method: "GET",
+                credentials: "include"
+            });
+            const postInfo = await response.json();
+            setTitle(postInfo.title);
+            setCategory(postInfo.category);
+            setSummary(postInfo.summary);
+            editor.commands.setContent(postInfo.content);
+        }
+        setPostInfo();
+    },[]);
 
     async function onCreatePost(event){
         event.preventDefault();
@@ -76,23 +94,34 @@ export default function CreatePostPage(){
             nagivate("/forum");
         }
     }
+    async function onDeletePost(event){
+        event.preventDefault();
+        const response = await fetch("http://localhost:4000/deletepost/".concat(params.id), {
+            method: "DELETE",
+            credentials: "include"
+        });
+        if(response.status==200){
+            nagivate("/forum");
+        }
+    }
     return (
         <>
             <Header/>
             <main className="createPostPage">
                 <form onSubmit={onCreatePost} encType="multipart/form-data"> 
-                    <h2>Create New Post</h2>
-                    <input required type="text" id="title" placeholder="Title" onChange={event=>setTitle(event.target.value)}></input>
-                    <select required name="dropdown" id="category" defaultValue="none" onChange={event=>setCategory(event.target.value)}>
+                    <h2>Edit Post</h2>
+                    <input required type="text" id="title" placeholder="Title" defaultValue={title} onChange={event=>setTitle(event.target.value)}></input>
+                    <select required name="dropdown" id="category" defaultValue={category} onChange={event=>setCategory(event.target.value)}>
                         <option value="none" disabled>Select your category</option>
                         <option value="modelling">Modelling</option>
                         <option value="lighting">Lighting</option>
                         <option value="texturing">Texturing</option>
                         <option value="animating">Animating</option>
                     </select>
-                    <input required type="text" id="summary" placeholder="Summary (max 120 characters)" onChange={event=>setSummary(event.target.value) } maxLength={120}></input>
+                    <input required type="text" id="summary" defaultValue={summary} placeholder="Summary (max 120 characters)" onChange={event=>setSummary(event.target.value) } maxLength={120}></input>
                     <Tiptap editor={editor}/>
-                    <button type="submit">Post</button>
+                    <button type="submit">Update</button>
+                    <button type="submit" onClick={onDeletePost}>Delete</button>
                 </form>
             </main>
             <Footer/>

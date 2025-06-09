@@ -37,6 +37,7 @@ app.get("/profile", async (req, res)=>{
     let cookieInfo = {};
     if(token==null||token.length==0){
         res.status(401).json({message: "noToken"});
+        return;
     }
     else{
         jwt.verify(token, secretPrivateKey, {}, (err,info)=>{
@@ -49,8 +50,10 @@ app.get("/profile", async (req, res)=>{
     const userInfo = await UserModel.findById(cookieInfo.id);
     if(userInfo == null){
         res.status(401).json({message: "userNotExist"});
+    }else{
+        res.status(200).json(cookieInfo);
     }
-    res.status(200).json(cookieInfo);
+    
     
 });
 
@@ -126,13 +129,20 @@ app.get("/post", async (req, res)=>{
         }
         return postlist;
     }
+    function filterCategory(postlist, categoryName){
+        return postlist.filter(item=>(item.category==categoryName));
+    }
+
+
     let posts = await PostModel.find().populate("author", ['username']).sort({"createdAt":-1}).limit(20);
     if(posts.length==0){
         res.status(200).json({});
     }
     if(req.query.order!=null&&req.query.order=="descending"){
-
         posts = bubbleSortInvert(posts);
+    }
+    if(req.query.category!=null&&req.query.category!=""){
+        posts = filterCategory(posts, req.query.category);
     }
     // console.log(posts);
     res.status(200).json(posts);
@@ -167,25 +177,38 @@ app.post("/post", async (req, res)=>{
     }
 });
 
+// Used to retreive the post information given the post id in the db
 app.get("/post/:id", async (req, res)=>{
     const postInfo = await PostModel.findById(req.params.id).populate("author", ['username']);
     const post = {
         title: postInfo.title,
         author: postInfo.author.username,
         category: postInfo.category,
+        summary: postInfo.summary,
         content: postInfo.content,
         createdAt: format(postInfo.createdAt,"Pp"),
         updatedAt: format(postInfo.updatedAt,"Pp")
     }
     res.status(200).json(post);
 });
-
+// Used to update user info requested by users
 app.put("/changeProfileInfo/:userId", async (req, res)=>{
     const userId = req.params.userId;
     const userInfo = await UserModel.findByIdAndUpdate(userId, {username: req.body.username});
     res.status(200).clearCookie("token").json({message:"ok"}); 
 });
-
+app.delete("/deletePost/:userId", async (req, res)=>{
+    try {
+        const postDeletion = await PostModel.deleteMany({_id: req.params.userId});
+        const userInfo = await UserModel.findByIdAndDelete(userId);
+        
+    } catch (error) {
+        console.log(error);
+        res.status(400);
+    }
+    
+    res.status(200).json({message:"ok"});
+});
 app.delete("/deleteProfile/:userId", async (req, res)=>{
     const userId = req.params.userId;
     try {

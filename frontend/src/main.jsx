@@ -12,6 +12,7 @@ import PostPage from './pages/PostPage.jsx';
 import { UserContextProvider } from './UserContext.jsx';
 import CreatePostPage from './pages/CreatePostPage.jsx';
 import SettingPage from './pages/settingPage.jsx';
+import EditPostPage from './pages/EditPostPage.jsx';
 
 const router = createBrowserRouter([
 	{
@@ -47,6 +48,11 @@ const router = createBrowserRouter([
 	{
 		path: '/createpost',
 		element: <CreatePostPage/>,
+		errorElement: <NotFoundPage/>
+	},
+	{
+		path: '/editpost/:id',
+		element: <EditPostPage/>,
 		errorElement: <NotFoundPage/>
 	},
 	{

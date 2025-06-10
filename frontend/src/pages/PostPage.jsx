@@ -135,7 +135,7 @@ export default function PostPage(){
                 {
                     (comments!=null && comments.length!=0)?comments.map((comment)=>{
                         return (<>
-                            <Comment username={comment.username} content={comment.content}/>
+                            <Comment userId={comment.userId} content={comment.content}/>
                         </>
                         );
                     }):<div>Not Comment yet</div>

@@ -65,6 +65,7 @@ export default function SettingPage(){
         });
         const resJson = await response.json();
         if(response.status==200){
+            setUserInfo({});
             nagivate("/login");
         }
     }

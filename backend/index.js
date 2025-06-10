@@ -57,6 +57,19 @@ app.get("/profile", async (req, res)=>{
     
     
 });
+// An api created specify only get the username from userId
+app.get("/username/:userId", async (req, res)=>{
+    const userId = req.params.userId;
+    const username = await UserModel.findById(userId);
+
+    // If username not found
+    if(username == null || username == undefined){
+        res.status(200).send("");
+        return;
+    }
+    res.status(200).send(username.username);
+
+});
 
 app.post("/register", async (req,res)=>{
     const {username, password} = req.body;
@@ -84,6 +97,11 @@ app.post("/login", async (req, res)=>{
     //Return 400 error if user does not exist in database
     if(userDoc==null){
         res.status(400).json({message:"User Not Found"});
+        return;
+    }
+    if(username==null||password==null){
+        res.status(400).json({message:"Empty username or password"});
+        return;
     }
     //If password match, create token for session
     if(bcrypt.compareSync(password, userDoc.password)){
@@ -140,6 +158,7 @@ app.get("/post", async (req, res)=>{
     let posts = await PostModel.find().populate("userId", ['username']).sort({"createdAt":-1}).limit(20);
     if(posts.length==0){
         res.status(200).json({});
+        return;
     }
     if(req.query.order!=null&&req.query.order=="descending"){
         posts = bubbleSortInvert(posts);
@@ -227,6 +246,7 @@ app.get("/post/:id", async (req, res)=>{
     }
     res.status(200).json(post);
 });
+// Used to retreive array of comments information given the post id in the db
 app.get("/comment/:postId", async (req,res)=>{
     const postId = req.params.postId;
     const comments = await CommentModel.find({postId:postId});
@@ -263,14 +283,23 @@ app.delete("/deletePost/:userId", async (req, res)=>{
     res.status(200).json({message:"ok"});
 });
 app.delete("/deleteProfile/:userId", async (req, res)=>{
-    const userId = req.params.userId;
     try {
-        const postDeletion = await PostModel.deleteMany({author: userId});
-        const userInfo = await UserModel.findByIdAndDelete(userId);
-        
+        // Retrieve a list of postList first
+        const postList = await PostModel.find({userId: req.params.userId}).select("_id");
+        console.log(postList);
+        if(postList.length!=0){
+            const deletedPostId = postList.map(info=>info._id);
+            console.log(deletedPostId);
+            // $in operation is support in mongoseDB: https://www.mongodb.com/docs/manual/reference/operator/query/in/#mongodb-query-op.-in
+            const CommentLinkingDeletion = await CommentModel.deleteMany({postId:{$in:deletedPostId}});
+            const postDeletion = await PostModel.deleteMany({userId: req.params.userId});
+        }
+
+        const userInfo = await UserModel.findByIdAndDelete(req.params.userId);
     } catch (error) {
+        res.status(400).clearCookie("token").json({message:"error"});
         console.log(error);
-        res.status(400).clearCookie("token");
+        return;
     }
     
     res.status(200).clearCookie("token").json({message:"ok"}); 

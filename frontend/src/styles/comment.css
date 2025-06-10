@@ -5,4 +5,5 @@ div.comment {
     width: 100%;
     border: 1px solid;
     padding: 16px;
+    margin: 8px 0px;
 }

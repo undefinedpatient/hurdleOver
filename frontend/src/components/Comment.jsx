@@ -1,6 +1,6 @@
-export default function comment(){
+export default function Comment(){
     return (
-        <div>
+        <div className="comment">
             <div className="commentInfo">Patient 26-06-2026</div>
             <div className="commentContent"></div>
         </div>

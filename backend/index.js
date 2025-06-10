@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const { UserModel, accessLevel } = require("./models/User.js");
 const { PostModel} = require("./models/Post.js");
+const { CommentModel } = require("./models/Comment.js");
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -115,6 +116,8 @@ app.post("/login", async (req, res)=>{
 app.post("/logout", (req, res)=>{
    res.status(200).clearCookie("token").json({message:"ok"}); 
 });
+
+
 app.get("/post", async (req, res)=>{
     // Bubble Sort an input list of posts in descending order
     function bubbleSortInvert(postlist){
@@ -134,7 +137,7 @@ app.get("/post", async (req, res)=>{
     }
 
 
-    let posts = await PostModel.find().populate("author", ['username']).sort({"createdAt":-1}).limit(20);
+    let posts = await PostModel.find().populate("userId", ['username']).sort({"createdAt":-1}).limit(20);
     if(posts.length==0){
         res.status(200).json({});
     }
@@ -164,8 +167,8 @@ app.post("/post", async (req, res)=>{
         const postDoc = await PostModel.create(
             {
                 title: title,
+                userId: userId,
                 summary: summary,
-                author: userId,
                 category: category,
                 content: content
             }
@@ -198,7 +201,7 @@ app.put("/post", async (req, res)=>{
             {
                 title: title,
                 summary: summary,
-                author: userId,
+                userId: userId,
                 category: category,
                 content: content
             }
@@ -209,13 +212,12 @@ app.put("/post", async (req, res)=>{
         res.status(400).json({message:"error"});
     }
 });
-
 // Used to retreive the post information given the post id in the db
 app.get("/post/:id", async (req, res)=>{
-    const postInfo = await PostModel.findById(req.params.id).populate("author", ['username']);
+    const postInfo = await PostModel.findById(req.params.id).populate("userId", ['username']);
     const post = {
         title: postInfo.title,
-        author: postInfo.author.username,
+        username: postInfo.userId.username,
         category: postInfo.category,
         summary: postInfo.summary,
         content: postInfo.content,
@@ -224,6 +226,12 @@ app.get("/post/:id", async (req, res)=>{
     }
     res.status(200).json(post);
 });
+
+app.post("/comment", async (req,res)=>{
+    const {userId, content} = req.body;
+    console.log(userId, content);
+});
+
 // Used to update user info requested by users
 app.put("/changeProfileInfo/:userId", async (req, res)=>{
     const userId = req.params.userId;
@@ -233,7 +241,7 @@ app.put("/changeProfileInfo/:userId", async (req, res)=>{
 app.delete("/deletePost/:userId", async (req, res)=>{
     try {
         const postDeletion = await PostModel.deleteMany({_id: req.params.userId});
-        const userInfo = await UserModel.findByIdAndDelete(userId);
+        const userInfo = await UserModel.findByIdAndDelete(req.params.userId);
         
     } catch (error) {
         console.log(error);

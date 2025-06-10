@@ -9,7 +9,7 @@ import iconModelling from '../assets/cube.svg';
 import iconTexturing from '../assets/texture.svg';
 import iconLighting from '../assets/lighting.svg';
 import iconAnimating from '../assets/keyframes.svg';
-export default function Post({_id, title, author, summary, category, updatedAt}){
+export default function Post({_id, title, username, summary, category, updatedAt}){
     function getCategorlURL(category){
         switch (category) {
             case "modelling":
@@ -31,7 +31,7 @@ export default function Post({_id, title, author, summary, category, updatedAt})
                 <div>
                     <h5>{title}</h5>
                     <p>
-                        <span className="author">{author}</span>
+                        <span className="author">{username}</span>
                         <time>&nbsp;{format(new Date(updatedAt), "Pp")}&nbsp;</time>
                     </p>
                     <p>Category: {String(category).charAt(0).toUpperCase().concat(String(category).slice(1))}</p>

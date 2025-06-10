@@ -1,0 +1,7 @@
+div.comment {
+    display: flex;
+        flex-direction: column;
+    height: 80px;
+    width: 80px;
+    border: 1px solid;
+}

@@ -22,10 +22,12 @@ import TipTap from "../components/Tiptap.jsx";
 
 import "../styles/styles.css";
 import "../styles/postPage.css";
+import Comment from '../components/Comment.jsx';
 
 export default function PostPage(){
     const params = useParams();
     const [post, setPost] = useState([]);
+    const [comments, setComments] = useState([]);
     const [isActiveCommentEditor, setIsActiveCommentEditor] = useState(false);
     const [userInfo, setUserInfo] = useState([]);
     const editor = useEditor({
@@ -73,6 +75,16 @@ export default function PostPage(){
             await setUserInfo(userInfo);
         }
         identifyUser();
+        async function getComments(){
+            const response = await fetch('http://localhost:4000/comments',
+                {
+                    method: 'GET'
+                }
+            )
+            const commentsInfo = await response.json();
+            await setComments(commentsInfo);
+        }
+        getComments();
     }
     ,[]);
 
@@ -80,22 +92,25 @@ export default function PostPage(){
         setIsActiveCommentEditor(!isActiveCommentEditor);
         console.log(isActiveCommentEditor);
     }
+    async function onSubmitCommentClicked(){
 
+    }
 
     return (
         <div className="postPage">
             <Header/>
             <div className="post">
                 <h2 className="title">{post.title}</h2>
-                <h5 className="author">{post.author}</h5>
+                <h5 className="author">{post.username}</h5>
                 <time className="date">&nbsp;Created At: {post.createdAt}&nbsp;&nbsp;Updated At: {post.updatedAt}&nbsp;</time>
                 <div className="content" dangerouslySetInnerHTML={{__html:post.content}}></div>
                 <ReactLink className={
-                    "authorEditLink".concat((userInfo.username==post.author)?" active":"")
+                    "authorEditLink".concat((userInfo.username==post.username)?" active":"")
 
                 } to={"/editpost/".concat(params.id)}></ReactLink>
                 <div className="buttonBar">
                     <button className="buttonComment" onClick={toggleCommentEditor}></button>
+                    <span>0</span>
                     <button className="upvote"></button>
                     <span>0</span>
                     <button className="downvote"></button>
@@ -106,7 +121,13 @@ export default function PostPage(){
                 <h3>Comments</h3>
                 <div className={"commentEditor".concat((isActiveCommentEditor==true)?" active":" ")}>
                     <TipTap editor={editor}/><br></br>
-                    <button className="submitComment">Submit</button>
+                    <button className="submitComment" onSubmit={onSubmitCommentClicked}>Submit</button>
+                    {comments.map((comment)=>{
+                        return (<>
+                            <Comment/>
+                        </>
+                        );
+                    })}
                 </div>
             </div>
             

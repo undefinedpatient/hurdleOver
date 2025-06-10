@@ -216,6 +216,7 @@ app.put("/post", async (req, res)=>{
 app.get("/post/:id", async (req, res)=>{
     const postInfo = await PostModel.findById(req.params.id).populate("userId", ['username']);
     const post = {
+        id: postInfo._id,
         title: postInfo.title,
         username: postInfo.userId.username,
         category: postInfo.category,
@@ -226,10 +227,21 @@ app.get("/post/:id", async (req, res)=>{
     }
     res.status(200).json(post);
 });
-
+app.get("/comment/:postId", async (req,res)=>{
+    const postId = req.params.postId;
+    const comments = await CommentModel.find({postId:postId});
+    res.status(200).json(comments);
+});
 app.post("/comment", async (req,res)=>{
-    const {userId, content} = req.body;
-    console.log(userId, content);
+    const {postId, userId, content} = req.body;
+    const commentDoc = await CommentModel.create(
+        {
+            postId: postId,
+            userId: userId,
+            content: content
+        }
+    );
+    res.status(200).json({message: "ok"});
 });
 
 // Used to update user info requested by users

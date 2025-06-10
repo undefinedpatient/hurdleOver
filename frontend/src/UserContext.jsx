@@ -1,13 +1,7 @@
 import { createContext, useState } from "react";
 
 // Create the context
-export const UserContext = createContext({
-  userInfo: {
-    username: "",
-    accessLevel: ""
-  },
-  setUserInfo: () => {},
-});
+export const UserContext = createContext();
 
 // Context provider component
 export function UserContextProvider({ children }) {

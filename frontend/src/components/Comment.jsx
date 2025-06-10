@@ -1,8 +1,10 @@
-export default function Comment(){
+import "../styles/comment.css";
+
+export default function Comment({username, content}){
     return (
         <div className="comment">
-            <div className="commentInfo">Patient 26-06-2026</div>
-            <div className="commentContent"></div>
+            <div className="commentInfo">{(username!=undefined||username!=null)?username:"<anonymous>"}</div>
+            <div className="commentContent" dangerouslySetInnerHTML={{__html:content}}></div>
         </div>
     );
 }

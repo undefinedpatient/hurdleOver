@@ -58,7 +58,8 @@ export default function Header(){
                 
                 return;
             }
-            setUserInfo(info);
+            await setUserInfo(info);
+            
             return;
         }
 

@@ -270,10 +270,10 @@ app.put("/changeProfileInfo/:userId", async (req, res)=>{
     const userInfo = await UserModel.findByIdAndUpdate(userId, {username: req.body.username});
     res.status(200).clearCookie("token").json({message:"ok"}); 
 });
-app.delete("/deletePost/:userId", async (req, res)=>{
+app.delete("/deletePost/:postId", async (req, res)=>{
     try {
-        const postDeletion = await PostModel.deleteMany({_id: req.params.userId});
-        const userInfo = await UserModel.findByIdAndDelete(req.params.userId);
+        const postDeletion = await PostModel.findByIdAndDelete(req.params.postId);
+        await CommentModel.deleteMany({postId:{$in:req.params.postId}});
         
     } catch (error) {
         console.log(error);
@@ -288,10 +288,9 @@ app.delete("/deleteProfile/:userId", async (req, res)=>{
         const postList = await PostModel.find({userId: req.params.userId}).select("_id");
         console.log(postList);
         if(postList.length!=0){
-            const deletedPostId = postList.map(info=>info._id);
-            console.log(deletedPostId);
+            const deletedPostIdList = postList.map(info=>info._id);
             // $in operation is support in mongoseDB: https://www.mongodb.com/docs/manual/reference/operator/query/in/#mongodb-query-op.-in
-            const CommentLinkingDeletion = await CommentModel.deleteMany({postId:{$in:deletedPostId}});
+            const commentLinkingDeletion = await CommentModel.deleteMany({postId:{$in:deletedPostIdList}});
             const postDeletion = await PostModel.deleteMany({userId: req.params.userId});
         }
 

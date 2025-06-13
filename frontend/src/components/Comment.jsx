@@ -1,7 +1,8 @@
 import { useParams } from "react-router-dom";
 import "../styles/comment.css";
 import { useEffect, useState } from "react";
-export default function Comment({userId, content}){
+// canDeleteByCurrentUser is to check if the author of the comment and the user is the same user, if yes, allow them to delete the comment
+export default function Comment({commentId, userId, content, canDeleteByCurrentUser}){
     const [username, setUsername] = useState("<Anonymous>")
     useEffect(()=>{
         async function getUsername(){
@@ -15,10 +16,21 @@ export default function Comment({userId, content}){
         }
         getUsername();
     }, []);
+    async function onDeleteCommentClicked(){
+        const response = await fetch(`http://localhost:4000/comment/${commentId}`,
+            {
+                method: "DELETE"
+            }
+        )
+    }
     return (
         <div className="comment">
             <div className="commentInfo">{username}</div>
             <div className="commentContent" dangerouslySetInnerHTML={{__html:content}}></div>
+            {
+                (canDeleteByCurrentUser)?<span onClick={onDeleteCommentClicked}>Delete</span>:<span></span>
+            }
+            
         </div>
     );
 }

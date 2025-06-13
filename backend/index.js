@@ -255,6 +255,11 @@ app.get("/comment/:postId", async (req,res)=>{
 });
 app.post("/comment", async (req,res)=>{
     const {postId, userId, content} = req.body;
+    const {token} = req.cookies;
+    if(token==null||token.length==0){
+        res.status(401).json({message: "noToken"});
+        return;
+    }
     const commentDoc = await CommentModel.create(
         {
             postId: postId,
@@ -265,7 +270,15 @@ app.post("/comment", async (req,res)=>{
     const postDoc = await PostModel.findByIdAndUpdate(postId, {$inc:{commentCount: 1}});
     res.status(200).json({message: "ok"});
 });
+app.delete("/comment/:commentId", async (req, res)=>{
+    const postInfo = await CommentModel.findById(req.params.commentId);
+    const postId = postInfo.postId;
+    console.log(postId);
+    const commentDoc = await CommentModel.findByIdAndDelete(req.params.commentId);
+    const postDoc = await PostModel.findByIdAndUpdate(postId, {$inc:{commentCount: -1}});
+    res.status(200).json({message: "ok"});
 
+})
 // Used to update user info requested by users
 app.put("/changeProfileInfo/:userId", async (req, res)=>{
     const userId = req.params.userId;
@@ -292,7 +305,8 @@ app.delete("/deleteProfile/:userId", async (req, res)=>{
         if(postList.length!=0){
             const deletedPostIdList = postList.map(info=>info._id);
             // $in operation is support in mongoseDB: https://www.mongodb.com/docs/manual/reference/operator/query/in/#mongodb-query-op.-in
-            const commentLinkingDeletion = await CommentModel.deleteMany({postId:{$in:deletedPostIdList}});
+            // const commentLinkingDeletion = await CommentModel.deleteMany({postId:{$in:deletedPostIdList}});
+            const commentDeletion = await CommentModel.deleteMany({userId:req.params.userId});
             const postDeletion = await PostModel.deleteMany({userId: req.params.userId});
         }
 

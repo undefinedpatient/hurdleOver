@@ -33,7 +33,6 @@ export default function PostPage(){
     const {userInfo, setUserInfo} = useContext(UserContext);
     const editor = useEditor({
             extensions: [
-                
                 Document,
                 Paragraph,
                 Text,
@@ -98,10 +97,16 @@ export default function PostPage(){
                 postId: postInfo.id,
                 userId: userInfo.id,
                 content: editor.getHTML()
-            })
+            }),
+            credentials: "include"
         });
+        if(response.status==200){
+            window.location.reload();
+        }else{
+            alert("You need an account to leave comment!");
+        }
         // Reload the page
-        window.location.reload();
+        
     }
 
     return (
@@ -134,7 +139,7 @@ export default function PostPage(){
                 {
                     (comments!=null && comments.length!=0)?comments.map((comment)=>{
                         return (<>
-                            <Comment userId={comment.userId} content={comment.content}/>
+                            <Comment commentId={comment._id} userId={comment.userId} content={comment.content} canDeleteByCurrentUser={(comment.userId==userInfo.id)}/>
                         </>
                         );
                     }):<div>Not Comment yet</div>

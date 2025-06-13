@@ -51,33 +51,47 @@ div.postPage{
             column-gap: 16px;
         }
         button.buttonComment{
+            position: relative;
             background-color: transparent;
             background-image: url("../assets/comment.svg");
             background-size: cover;
             height: 24px;
             width: 24px;
             cursor: pointer;
+            filter: grayscale(100%);
+            &.active{
+                filter: grayscale(100%) brightness(70%);
+            }
         }
-        button.upvote{
+        button.upVote{
             background-color: transparent;
             background-image: url("../assets/arrowUp.svg");
             background-size: cover;
             height: 24px;
             width: 24px;
             cursor: pointer;
+            filter: brightness(100%);
+            &.active{
+                filter: brightness(70%);
+            }
         }
-        button.downvote{
+        button.downVote{
             background-color: transparent;
             background-image: url("../assets/arrowDown.svg");
             background-size: cover;
             height: 24px;
             width: 24px;
             cursor: pointer;
+            filter: brightness(100%);
+            &.active{
+                filter: brightness(70%);
+            }
         }
         & .authorEditLink{
             display: none;
             position: absolute;
-            background-image: url("../assets/edit.svg");
+            background:  url("../assets/edit.svg");
+            overflow: hidden;
             background-size: cover;
             height: 24px;
             width: 24px;

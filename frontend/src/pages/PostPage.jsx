@@ -22,6 +22,8 @@ import TipTap from "../components/Tiptap.jsx";
 
 import "../styles/styles.css";
 import "../styles/postPage.css";
+import editSVG from "../assets/edit.svg";
+import commentSVG from "../assets/comment.svg";
 import Comment from '../components/Comment.jsx';
 
 export default function PostPage(){
@@ -31,6 +33,8 @@ export default function PostPage(){
     const [comments, setComments] = useState([]);
     const [isActiveCommentEditor, setIsActiveCommentEditor] = useState(false);
     const {userInfo, setUserInfo} = useContext(UserContext);
+    const [isUpVoted, setIsUpVoted] = useState(false);
+    const [isDownVoted, setIsDownVoted] = useState(false);
     const editor = useEditor({
             extensions: [
                 Document,
@@ -82,6 +86,20 @@ export default function PostPage(){
     function toggleCommentEditor(){
         setIsActiveCommentEditor(!isActiveCommentEditor);
     }
+    function toggleUpVote(){
+        setIsUpVoted(!isUpVoted);
+
+        if(isDownVoted){
+            setIsDownVoted(!isDownVoted);
+        }
+    }
+    function toggleDownVote(){
+        setIsDownVoted(!isDownVoted);
+
+        if(isUpVoted){
+            setIsUpVoted(!isUpVoted);
+        }
+    }
     async function onSubmitCommentClicked(event){
         // console.log(userInfo);
         event.preventDefault();
@@ -121,11 +139,11 @@ export default function PostPage(){
 
                 } to={"/editpost/".concat(params.id)}></ReactLink>
                 <div className="buttonBar">
-                    <button className="buttonComment" onClick={toggleCommentEditor}></button>
+                    <button className={"buttonComment".concat((isActiveCommentEditor)?" active":"")} onClick={toggleCommentEditor}></button>
                     <span>{(postInfo.commentCount!=null&&postInfo.commentCount!=undefined)?postInfo.commentCount:0}</span>
-                    <button className="upvote"></button>
+                    <button className={"upVote".concat((isUpVoted)?" active":"")} onClick={toggleUpVote}></button>
                     <span>0</span>
-                    <button className="downvote"></button>
+                    <button className={"downVote".concat((isDownVoted)?" active":"")} onClick={toggleDownVote}></button>
                     <span>0</span>
                 </div>
             </div>

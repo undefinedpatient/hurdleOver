@@ -6,7 +6,10 @@ const PostSchema = new mongoose.Schema({
     summary: {type:String, required:true},
     category: {type:String, required:true},
     content: {type:String, required:true},
-    commentCount: {type:Number, required:false, default:0}
+    commentCount: {type:Number, default:0},
+    upvotes: {type:Number, default:0},
+    downvotes: {type:Number, default:0},
+    resolve: {type:Boolean, default:false}
 },{
     timestamps:true
 });

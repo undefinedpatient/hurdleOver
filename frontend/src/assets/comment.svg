@@ -1,7 +1,74 @@
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Uploaded to: SVG Repo, www.svgrepo.com, Transformed by: SVG Repo Mixer Tools -->
-<svg fill="#ffffff" width="800px" height="800px" viewBox="0 0 512 512" id="_60_Comments" data-name="60 Comments" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff">
-<g id="SVGRepo_bgCarrier" stroke-width="0"/>
-<g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
-<g id="SVGRepo_iconCarrier"> <g id="Group_155" data-name="Group 155"> <rect id="Rectangle_80" data-name="Rectangle 80" width="256" height="64" transform="translate(128 224)"/> <rect id="Rectangle_81" data-name="Rectangle 81" width="256" height="64" transform="translate(128 128)"/> <path id="Path_78" data-name="Path 78" d="M480,0H32A31.981,31.981,0,0,0,0,32V384a31.981,31.981,0,0,0,32,32H96v96l144-96H480a31.981,31.981,0,0,0,32-32V32A31.981,31.981,0,0,0,480,0ZM448,352H240l-80,48V352H64V64H448Z"/> </g> </g>
-</svg>
+
+<svg
+   fill="#ffffff"
+   width="800px"
+   height="800px"
+   viewBox="0 0 512 512"
+   id="_60_Comments"
+   data-name="60 Comments"
+   stroke="#ffffff"
+   version="1.1"
+   sodipodi:docname="comment.svg"
+   inkscape:version="1.4.2 (f4327f4, 2025-05-13)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#505050"
+     bordercolor="#ffffff"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     inkscape:deskcolor="#505050"
+     inkscape:zoom="1.00875"
+     inkscape:cx="399.50434"
+     inkscape:cy="399.50434"
+     inkscape:window-width="933"
+     inkscape:window-height="1032"
+     inkscape:window-x="23"
+     inkscape:window-y="331"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="_60_Comments" />
+  <g
+     id="SVGRepo_bgCarrier"
+     stroke-width="0" />
+  <g
+     id="SVGRepo_tracerCarrier"
+     stroke-linecap="round"
+     stroke-linejoin="round" />
+  <g
+     id="SVGRepo_iconCarrier"
+     style="fill:#ffff00;fill-opacity:1">
+    <g
+       id="Group_155"
+       data-name="Group 155"
+       style="fill:#ffff00;fill-opacity:1">
+      <rect
+         id="Rectangle_80"
+         data-name="Rectangle 80"
+         width="256"
+         height="64"
+         transform="translate(128 224)"
+         style="fill:#ffff00;fill-opacity:1" />
+      <rect
+         id="Rectangle_81"
+         data-name="Rectangle 81"
+         width="256"
+         height="64"
+         transform="translate(128 128)"
+         style="fill:#ffff00;fill-opacity:1" />
+      <path
+         id="Path_78"
+         data-name="Path 78"
+         d="M480,0H32A31.981,31.981,0,0,0,0,32V384a31.981,31.981,0,0,0,32,32H96v96l144-96H480a31.981,31.981,0,0,0,32-32V32A31.981,31.981,0,0,0,480,0ZM448,352H240l-80,48V352H64V64H448Z"
+         style="fill:#ffff00;fill-opacity:1" />
+    </g>
+  </g>
+</svg>

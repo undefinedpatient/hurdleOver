@@ -73,7 +73,7 @@ div.settingPage{
     }
     & div.confirmDeletionWindow{
         z-index: 1;
-        position: absolute;
+        position: fixed;
             left: 50%;
             top: 50%;
         visibility: hidden;
@@ -87,7 +87,7 @@ div.settingPage{
         margin: -120px -180px;
         width: 360px;
         height: 240px;
-        border: 2px solid rgb(255, 0, 0);
+        border: 2px solid rgb(255, 255, 255);
         &.active{
             visibility:visible;
         }

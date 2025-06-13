@@ -101,12 +101,11 @@ export default function PostPage(){
             credentials: "include"
         });
         if(response.status==200){
+            // Reload the page
             window.location.reload();
         }else{
             alert("You need an account to leave comment!");
         }
-        // Reload the page
-        
     }
 
     return (
@@ -138,6 +137,7 @@ export default function PostPage(){
                 </div>
                 {
                     (comments!=null && comments.length!=0)?comments.map((comment)=>{
+                        console.log(comment);
                         return (<>
                             <Comment commentId={comment._id} userId={comment.userId} content={comment.content} canDeleteByCurrentUser={(comment.userId==userInfo.id)}/>
                         </>

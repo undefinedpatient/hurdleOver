@@ -271,10 +271,11 @@ app.post("/comment", async (req,res)=>{
     res.status(200).json({message: "ok"});
 });
 app.delete("/comment/:commentId", async (req, res)=>{
-    const postInfo = await CommentModel.findById(req.params.commentId);
-    const postId = postInfo.postId;
-    console.log(postId);
+    const commentInfo = await CommentModel.findById(req.params.commentId);
+    const postId = commentInfo.postId;
+    console.log(req.params.commentId);
     const commentDoc = await CommentModel.findByIdAndDelete(req.params.commentId);
+    // Update the comment count
     const postDoc = await PostModel.findByIdAndUpdate(postId, {$inc:{commentCount: -1}});
     res.status(200).json({message: "ok"});
 

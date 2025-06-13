@@ -241,6 +241,7 @@ app.get("/post/:id", async (req, res)=>{
         category: postInfo.category,
         summary: postInfo.summary,
         content: postInfo.content,
+        commentCount: postInfo.commentCount,
         createdAt: format(postInfo.createdAt,"Pp"),
         updatedAt: format(postInfo.updatedAt,"Pp")
     }
@@ -261,6 +262,7 @@ app.post("/comment", async (req,res)=>{
             content: content
         }
     );
+    const postDoc = await PostModel.findByIdAndUpdate(postId, {$inc:{commentCount: 1}});
     res.status(200).json({message: "ok"});
 });
 

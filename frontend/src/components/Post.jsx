@@ -9,7 +9,7 @@ import iconModelling from '../assets/cube.svg';
 import iconTexturing from '../assets/texture.svg';
 import iconLighting from '../assets/lighting.svg';
 import iconAnimating from '../assets/keyframes.svg';
-export default function Post({_id, title, username, summary, category, updatedAt}){
+export default function Post({_id, title, username, summary, category, updatedAt, commentCount}){
     function getCategorlURL(category){
         switch (category) {
             case "modelling":
@@ -37,7 +37,7 @@ export default function Post({_id, title, username, summary, category, updatedAt
                     <p>Category: {String(category).charAt(0).toUpperCase().concat(String(category).slice(1))}</p>
                     <p>{summary}</p>
                     <div className="postData">
-                        <span id="commentCount">Comments: {0}</span>
+                        <span id="commentCount">Comments: {(commentCount!=null&&commentCount!=undefined)?commentCount:0}</span>
                         <span id="upvoteCount">Upvotes: {0}</span>
                         <span id="downvoteCount">Downvotes: {0}</span>
                     </div>

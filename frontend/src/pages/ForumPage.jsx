@@ -49,7 +49,7 @@ export default function ForumPage(){
                 <div className="postEntries">
                     {
                         (posts.length>0)? posts.map((post)=>{
-                            return <Post _id={post._id} title={post.title} username={post.userId.username} summary={post.summary} category={post.category} updatedAt={post.updatedAt}/>
+                            return <Post _id={post._id} title={post.title} username={post.userId.username} summary={post.summary} category={post.category} updatedAt={post.updatedAt} commentCount={post.commentCount}/>
                         }
                         )
                         :

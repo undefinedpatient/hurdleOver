@@ -64,7 +64,7 @@ export default function PostPage(){
             const postInfo = await response.json();
             await setPostInfo(postInfo);
         }
-        getPost();
+        
         async function getComments(){
             const response = await fetch(`http://localhost:4000/comment/${params.id}`,
                 {
@@ -75,6 +75,7 @@ export default function PostPage(){
             
             await setComments(commentsInfo);
         }
+        getPost();
         getComments();
     }
     ,[]);
@@ -83,7 +84,6 @@ export default function PostPage(){
         setIsActiveCommentEditor(!isActiveCommentEditor);
     }
     async function onSubmitCommentClicked(event){
-        console.log(postInfo);
         // console.log(userInfo);
         event.preventDefault();
         // Comment Input Validation
@@ -118,7 +118,7 @@ export default function PostPage(){
                 } to={"/editpost/".concat(params.id)}></ReactLink>
                 <div className="buttonBar">
                     <button className="buttonComment" onClick={toggleCommentEditor}></button>
-                    <span>0</span>
+                    <span>{(postInfo.commentCount!=null&&postInfo.commentCount!=undefined)?postInfo.commentCount:0}</span>
                     <button className="upvote"></button>
                     <span>0</span>
                     <button className="downvote"></button>
@@ -130,7 +130,6 @@ export default function PostPage(){
                 <div className={"commentEditor".concat((isActiveCommentEditor==true)?" active":" ")}>
                     <TipTap editor={editor}/><br></br>
                     <button className="submitComment" onClick={onSubmitCommentClicked}>Submit</button>
-                    
                 </div>
                 {
                     (comments!=null && comments.length!=0)?comments.map((comment)=>{

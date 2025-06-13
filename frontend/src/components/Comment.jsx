@@ -14,7 +14,7 @@ export default function Comment({userId, content}){
             
         }
         getUsername();
-    });
+    }, []);
     return (
         <div className="comment">
             <div className="commentInfo">{username}</div>

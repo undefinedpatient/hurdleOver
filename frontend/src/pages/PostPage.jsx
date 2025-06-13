@@ -33,8 +33,8 @@ export default function PostPage(){
     const [comments, setComments] = useState([]);
     const [isActiveCommentEditor, setIsActiveCommentEditor] = useState(false);
     const {userInfo, setUserInfo} = useContext(UserContext);
-    const [isUpVoted, setIsUpVoted] = useState(false);
-    const [isDownVoted, setIsDownVoted] = useState(false);
+    // ["noVote", "upvote", "downvote"]
+    const [voteState, setVoteState] = useState("noVote");
     const editor = useEditor({
             extensions: [
                 Document,
@@ -78,27 +78,62 @@ export default function PostPage(){
             
             await setComments(commentsInfo);
         }
+
+        async function getVoteState(){
+            const response = await fetch(`http://localhost:4000/post/vote/${params.id}`,
+                {
+                    method: "GET",
+                    credentials: "include"
+                }
+            );
+            const voteInfo = await response.text();
+            
+            await setVoteState(voteInfo);
+        }
         getPost();
         getComments();
+        getVoteState();
     }
-    ,[]);
+    ,[voteState]);
 
     function toggleCommentEditor(){
         setIsActiveCommentEditor(!isActiveCommentEditor);
     }
-    function toggleUpVote(){
-        setIsUpVoted(!isUpVoted);
-
-        if(isDownVoted){
-            setIsDownVoted(!isDownVoted);
+    function toggleUpvote(){
+        
+        if(voteState=="upvote"){
+            sendVote("noVote");
+            setVoteState("noVote");
+        }else{
+            sendVote("upvote");
+            setVoteState("upvote");
         }
     }
-    function toggleDownVote(){
-        setIsDownVoted(!isDownVoted);
-
-        if(isUpVoted){
-            setIsUpVoted(!isUpVoted);
+    function toggleDownvote(){
+        if(voteState=="downvote"){
+            sendVote("noVote");
+            setVoteState("noVote");
+        }else{
+            sendVote("downvote");
+            setVoteState("downvote");
         }
+    }
+
+    async function sendVote(voteType){
+        const response = await fetch(`http://localhost:4000/post/vote/${params.id}`,
+            {
+                method:"PUT",
+                headers: {'Content-Type':'application/json'},
+                body: JSON.stringify({
+                    userId: userInfo.id,
+                    voteType: voteType
+                }),
+                credentials: "include"
+            }
+        );
+        const postInfo = await response.json();
+        await setPostInfo(postInfo);
+        
     }
     async function onSubmitCommentClicked(event){
         // console.log(userInfo);
@@ -141,10 +176,10 @@ export default function PostPage(){
                 <div className="buttonBar">
                     <button className={"buttonComment".concat((isActiveCommentEditor)?" active":"")} onClick={toggleCommentEditor}></button>
                     <span>{(postInfo.commentCount!=null&&postInfo.commentCount!=undefined)?postInfo.commentCount:0}</span>
-                    <button className={"upVote".concat((isUpVoted)?" active":"")} onClick={toggleUpVote}></button>
-                    <span>0</span>
-                    <button className={"downVote".concat((isDownVoted)?" active":"")} onClick={toggleDownVote}></button>
-                    <span>0</span>
+                    <button className={"upVote".concat((voteState=="upvote")?" active":"")} onClick={toggleUpvote}></button>
+                    <span>{postInfo.upvotes}</span>
+                    <button className={"downVote".concat((voteState=="downvote")?" active":"")} onClick={toggleDownvote}></button>
+                    <span>{postInfo.downvotes}</span>
                 </div>
             </div>
             <div className="commentList">

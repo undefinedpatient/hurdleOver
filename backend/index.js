@@ -3,6 +3,7 @@ const cors = require("cors");
 const { UserModel, accessLevel } = require("./models/User.js");
 const { PostModel} = require("./models/Post.js");
 const { CommentModel } = require("./models/Comment.js");
+const { VoteModel } = require("./models/Vote.js");
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -198,6 +199,7 @@ app.post("/post", async (req, res)=>{
         res.status(400).json({message:"error"});
     }
 });
+// For post editing by the author only
 app.put("/post", async (req, res)=>{
     const {title, summary, category, content, postId} = req.body;
     const {token} = req.cookies;
@@ -231,6 +233,73 @@ app.put("/post", async (req, res)=>{
         res.status(400).json({message:"error"});
     }
 });
+app.get("/post/vote/:postId", async (req, res)=>{
+    const postId = req.params.postId;
+    const {token} = req.cookies;
+    let userId = "";
+    if(token==null||token.length==0){
+        res.status(401).json({message: "noToken"});
+        return;
+    }
+    else{
+        jwt.verify(token, secretPrivateKey, {}, (err,info)=>{
+        if(err) throw err;
+            userId = info.id;
+        });
+    }
+    const voteDoc = await VoteModel.findOne({postId: postId, userId: userId});
+    if(voteDoc==null||voteDoc==undefined){
+        res.status(200).send("novote");
+        return;
+    }
+    res.status(200).send(voteDoc.voteType);
+});
+app.put("/post/vote/:postId", async (req, res)=>{
+    const postId = req.params.postId;
+    let {userId, voteType} = req.body;
+    const {token} = req.cookies;
+    console.log(voteType);
+    if(token==null||token.length==0){
+        res.status(401).json({message: "noToken"});
+        return;
+    }
+    // Check if vote is existed
+    let voteDoc = await VoteModel.findOne({postId: postId, userId: userId});
+    let postDoc = await PostModel.findById(postId);
+    if(postDoc==null||postDoc==undefined){
+        res.status(400).json({message: "post not found"});
+        return;
+    }
+    
+    if(voteDoc==undefined||voteDoc==null){
+        console.log("Creating Vote");
+        voteDoc = await VoteModel.create({postId: postId, userId: userId, voteType: voteType});
+        postDoc = await PostModel.findByIdAndUpdate(postId, {$inc:{[(voteType=="upvote")?"upvotes":"downvotes"]: 1}});
+        res.status(200);
+        return;
+    }else{
+        // The Existing Vote is found
+        if(voteType=="noVote"){
+            console.log("Deleting vote");
+            voteDoc = await VoteModel.findByIdAndDelete(voteDoc._id);
+            postDoc = await PostModel.findByIdAndUpdate(postId, {$inc:{[(voteDoc.voteType=="upvote")?"upvotes":"downvotes"]: -1}});
+            res.status(200);
+            return;
+        }else{
+            console.log("Replacing vote");
+            voteDoc = await VoteModel.findByIdAndUpdate(voteDoc._id, {voteType: voteType});
+            postDoc = await PostModel.findByIdAndUpdate(postId, {$inc:{[(voteType=="upvote")?"upvotes":"downvotes"]: 1}});
+            postDoc = await PostModel.findByIdAndUpdate(postId, {$inc:{[(voteType=="upvote")?"downvotes":"upvotes"]: -1}});
+            res.status(200);
+            return;
+        }
+        
+        
+    }
+    
+    
+    res.status(200);
+});
 // Used to retreive the post information given the post id in the db
 app.get("/post/:id", async (req, res)=>{
     const postInfo = await PostModel.findById(req.params.id).populate("userId", ['username']);
@@ -242,6 +311,8 @@ app.get("/post/:id", async (req, res)=>{
         summary: postInfo.summary,
         content: postInfo.content,
         commentCount: postInfo.commentCount,
+        upvotes: postInfo.upvotes,
+        downvotes: postInfo.downvotes,
         createdAt: format(postInfo.createdAt,"Pp"),
         updatedAt: format(postInfo.updatedAt,"Pp")
     }

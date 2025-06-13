@@ -139,7 +139,7 @@ export default function PostPage(){
                     (comments!=null && comments.length!=0)?comments.map((comment)=>{
                         console.log(comment);
                         return (<>
-                            <Comment commentId={comment._id} userId={comment.userId} content={comment.content} canDeleteByCurrentUser={(comment.userId==userInfo.id)}/>
+                            <Comment commentId={comment._id} userId={comment.userId} content={comment.content} createdAt={comment.createdAt} canDeleteByCurrentUser={(comment.userId==userInfo.id)}/>
                         </>
                         );
                     }):<div>Not Comment yet</div>

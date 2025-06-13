@@ -250,7 +250,26 @@ app.get("/post/:id", async (req, res)=>{
 // Used to retreive array of comments information given the post id in the db
 app.get("/comment/:postId", async (req,res)=>{
     const postId = req.params.postId;
-    const comments = await CommentModel.find({postId:postId});
+    let comments = await CommentModel.find({postId:postId});
+    comments.forEach((value, index) => {
+        comments[index] = {
+            _id: value._id,
+            postId: value.postId,
+            userId: value.userId,
+            content: value.content,
+            createdAt: format(value.createdAt,"Pp"),
+            updatedAt: format(value.updatedAt,"Pp")
+        };
+    }); 
+    // The method below does not work as expectedly
+    // Output: 6/13/2025, 4:06 PM 2025-06-13T08:06:56.747Z
+    // comments.forEach((value, index) => {
+    //     console.log(format(comments[index]["createdAt"],"Pp"));
+    //     comments[index]["createdAt"] = format(comments[index]["createdAt"],"Pp");
+    //     console.log(comments[index]["createdAt"]);
+    //     comments[index]["updatedAt"] = format(value.updatedAt,"Pp");
+            
+    // }); 
     res.status(200).json(comments);
 });
 app.post("/comment", async (req,res)=>{
@@ -320,4 +339,5 @@ app.delete("/deleteProfile/:userId", async (req, res)=>{
     
     res.status(200).clearCookie("token").json({message:"ok"}); 
 });
+
 app.listen(port);

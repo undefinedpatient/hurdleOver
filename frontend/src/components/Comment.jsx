@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import "../styles/comment.css";
 import { useEffect, useState } from "react";
 // canDeleteByCurrentUser is to check if the author of the comment and the user is the same user, if yes, allow them to delete the comment
-export default function Comment({commentId, userId, content, canDeleteByCurrentUser}){
+export default function Comment({commentId, userId, content, createdAt, canDeleteByCurrentUser}){
     const [username, setUsername] = useState("<Anonymous>")
     const [isConfirmationWindowOpened, setConfirmationWindowOpened] = useState(false);
     useEffect(()=>{
@@ -38,7 +38,7 @@ export default function Comment({commentId, userId, content, canDeleteByCurrentU
     }
     return (
         <div className="comment">
-            <div className="commentInfo">{username}</div>
+            <div className="commentInfo">From: {username}&emsp;&emsp;At: {createdAt}</div>
             <div className="commentContent" dangerouslySetInnerHTML={{__html:content}}></div>
             {
                 (canDeleteByCurrentUser)?<span className="deleteCommentButton" onClick={onDeleteCommentClicked}>Delete</span>:<span></span>

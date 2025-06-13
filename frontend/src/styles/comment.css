@@ -8,7 +8,9 @@ div.comment {
     padding: 16px;
     margin: 8px 0px;
 }
-
+div.commentInfo{
+    text-decoration: underline;
+}
 span.deleteCommentButton{
     position: absolute;
     display: block;

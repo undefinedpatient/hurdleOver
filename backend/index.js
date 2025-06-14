@@ -258,7 +258,6 @@ app.put("/post/vote/:postId", async (req, res)=>{
     const postId = req.params.postId;
     let {userId, voteType} = req.body;
     const {token} = req.cookies;
-    console.log(voteType);
     if(token==null||token.length==0){
         res.status(401).json({message: "noToken"});
         return;
@@ -272,25 +271,22 @@ app.put("/post/vote/:postId", async (req, res)=>{
     }
     
     if(voteDoc==undefined||voteDoc==null){
-        console.log("Creating Vote");
         voteDoc = await VoteModel.create({postId: postId, userId: userId, voteType: voteType});
         postDoc = await PostModel.findByIdAndUpdate(postId, {$inc:{[(voteType=="upvote")?"upvotes":"downvotes"]: 1}});
-        res.status(200);
+        res.status(200).send(voteDoc.voteType);
         return;
     }else{
         // The Existing Vote is found
         if(voteType=="noVote"){
-            console.log("Deleting vote");
             voteDoc = await VoteModel.findByIdAndDelete(voteDoc._id);
             postDoc = await PostModel.findByIdAndUpdate(postId, {$inc:{[(voteDoc.voteType=="upvote")?"upvotes":"downvotes"]: -1}});
-            res.status(200);
+            res.status(200).send("novote");;
             return;
         }else{
-            console.log("Replacing vote");
             voteDoc = await VoteModel.findByIdAndUpdate(voteDoc._id, {voteType: voteType});
             postDoc = await PostModel.findByIdAndUpdate(postId, {$inc:{[(voteType=="upvote")?"upvotes":"downvotes"]: 1}});
             postDoc = await PostModel.findByIdAndUpdate(postId, {$inc:{[(voteType=="upvote")?"downvotes":"upvotes"]: -1}});
-            res.status(200);
+            res.status(200).send(voteDoc.voteType);;
             return;
         }
         

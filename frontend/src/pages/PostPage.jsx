@@ -93,33 +93,35 @@ export default function PostPage(){
         getPost();
         getComments();
         getVoteState();
+        console.log("Receiving: "+voteState);
     }
     ,[voteState]);
 
     function toggleCommentEditor(){
         setIsActiveCommentEditor(!isActiveCommentEditor);
     }
-    function toggleUpvote(){
+    async function toggleUpvote(){
         
         if(voteState=="upvote"){
-            sendVote("noVote");
+            await sendVote("noVote");
             setVoteState("noVote");
         }else{
-            sendVote("upvote");
+            await sendVote("upvote");
             setVoteState("upvote");
         }
     }
-    function toggleDownvote(){
+    async function toggleDownvote(){
         if(voteState=="downvote"){
-            sendVote("noVote");
+            await sendVote("noVote");
             setVoteState("noVote");
         }else{
-            sendVote("downvote");
+            await sendVote("downvote");
             setVoteState("downvote");
         }
     }
 
     async function sendVote(voteType){
+        console.log("Vote sending...");
         const response = await fetch(`http://localhost:4000/post/vote/${params.id}`,
             {
                 method:"PUT",
@@ -131,8 +133,10 @@ export default function PostPage(){
                 credentials: "include"
             }
         );
-        const postInfo = await response.json();
-        await setPostInfo(postInfo);
+        console.log(response);
+        const voteInfo = await response.text();
+        await setVoteState(voteInfo);
+        console.log("Vote sent!");
         
     }
     async function onSubmitCommentClicked(event){

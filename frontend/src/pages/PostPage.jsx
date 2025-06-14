@@ -22,8 +22,6 @@ import TipTap from "../components/Tiptap.jsx";
 
 import "../styles/styles.css";
 import "../styles/postPage.css";
-import editSVG from "../assets/edit.svg";
-import commentSVG from "../assets/comment.svg";
 import Comment from '../components/Comment.jsx';
 
 export default function PostPage(){

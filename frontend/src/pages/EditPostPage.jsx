@@ -37,7 +37,6 @@ export default function EditPostPage(){
     const nagivate = useNavigate();
     const editor = useEditor({
         extensions: [
-            
             Document,
             Paragraph,
             Text,
@@ -65,12 +64,10 @@ export default function EditPostPage(){
                 credentials: "include"
             });
             const postInfo = await response.json();
-            setTitle(postInfo.title);
             setCategory(postInfo.category);
+            setTitle(postInfo.title);
             setSummary(postInfo.summary);
             setContent(postInfo.content);
-            
-            console.log(postInfo.content);
         }
         
         setPostInfo();
@@ -116,8 +113,11 @@ export default function EditPostPage(){
             <main className="createPostPage">
                 <form onSubmit={onCreatePost} encType="multipart/form-data"> 
                     <h2>Edit Post</h2>
-                    <input required type="text" id="title" placeholder="Title" defaultValue={title} onChange={event=>setTitle(event.target.value)}></input>
-                    <select required name="dropdown" id="category" defaultValue={category} onChange={event=>setCategory(event.target.value)}>
+                    <input required type="text" id="title" placeholder="Title" value={title} onChange={event=>setTitle(event.target.value)}></input>
+                    <select required name="dropdown" id="category" value={category} onChange={(event)=>{
+                        setCategory(event.target.value);
+                        console.log(event.target.value);
+                    }}>
                         <option value="none" disabled>Select your category</option>
                         <option value="modelling">Modelling</option>
                         <option value="lighting">Lighting</option>

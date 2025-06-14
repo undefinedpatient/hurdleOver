@@ -15,18 +15,18 @@ function Footer(){
                     <tbody>
                         <tr>
                             <td>Patient</td>
-                            <td>disorderedpatient@gmail.com</td>
-                            <td>IDK</td>
+                            <td>Email: disorderedpatient@gmail.com</td>
+                            <td>Not available</td>
                         </tr>
                         <tr>
-                            <td>Patient</td>
-                            <td>disorderedpatient@gmail.com</td>
-                            <td>IDK</td>
+                            <td></td>
+                            <td>Discord: disorderedpatient</td>
+                            <td></td>
                         </tr>
                         <tr>
-                            <td>Patient</td>
-                            <td>disorderedpatient@gmail.com</td>
-                            <td>IDK</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
                         </tr>
                     </tbody>
 

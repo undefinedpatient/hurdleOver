@@ -1,10 +1,13 @@
 import { useParams } from "react-router-dom";
 import "../styles/comment.css";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+// import { UserContext } from "../UserContext.jsx";
+
 // canDeleteByCurrentUser is to check if the author of the comment and the user is the same user, if yes, allow them to delete the comment
 export default function Comment({commentId, userId, content, createdAt, canDeleteByCurrentUser}){
     const [username, setUsername] = useState("<Anonymous>")
     const [isConfirmationWindowOpened, setConfirmationWindowOpened] = useState(false);
+    // const {userInfo, setUserInfo} = useContext(UserContext);
     useEffect(()=>{
         async function getUsername(){
             const response = await fetch(`http://localhost:4000/username/${userId}`)

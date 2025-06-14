@@ -15,30 +15,74 @@ main.indexPage{
         object-position: 0% 0%;
         object-fit: cover;
     }
-     
+    & h1.welcomeMessage{
+        position: relative;
+        top: 24px;
+        opacity: 0;
+        transition: all 1s ease;
+        &.isViewed{
+            opacity: 1;
+            top: 0px;
+        }
+    }
     & div.aboutUs{
         position: relative;
         padding: 64px;
         text-align: center;
         background-color: var(--layer04);
-        & p{
+        
+        & p.aboutUsContent{
             position: relative;
             padding: 16px;
             max-width: 80%;
             margin: auto;
+            opacity: 0;
+            top: 24px;
+            transition: all 3s ease;
+            &.isViewed{
+                 top: 0px;
+                opacity: 1;
+            }
         }
+        & h2.aboutUsHeader{
+            opacity: 0;
+            transition: all 1s ease;
+            &.isViewed{
+                opacity: 1;
+            }
+        }
+        
     }
     /* BlogList */
-    & div.postEntries{
+    & div.faq{
         position: relative;
         display: flex;
             flex-direction: column;
-            align-items: center;
-        background-color: var(--layer03);
-        
+            row-gap: 16px;
         padding: 64px;
-        width: 100vw;
+        background-color: var(--layer03);
+        & div.questions{
+            opacity: 0;
+            transition: all 2s ease;
+            &.isViewed{
+                opacity: 1;
+            }
+        }
+        & p.answer{
+            position: relative;
+            padding: 16px;
+            max-width: 80%;
+            
+            margin: auto;
+        }
+        & p.question{
+            position: relative;
+            padding: 16px;
+            max-width: 80%;
+            font-size: 2em;
+            margin: auto;
+            
+        }
         
-        height: 1280px;
     }
 }

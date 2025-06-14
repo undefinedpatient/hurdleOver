@@ -388,16 +388,31 @@ app.delete("/deleteProfile/:userId", async (req, res)=>{
     try {
         // Retrieve a list of postList first
         const postList = await PostModel.find({userId: req.params.userId}).select("_id");
-        console.log(postList);
-        if(postList.length!=0){
-            const deletedPostIdList = postList.map(info=>info._id);
-            // $in operation is support in mongoseDB: https://www.mongodb.com/docs/manual/reference/operator/query/in/#mongodb-query-op.-in
-            // const commentLinkingDeletion = await CommentModel.deleteMany({postId:{$in:deletedPostIdList}});
-            const commentDeletion = await CommentModel.deleteMany({userId:req.params.userId});
-            const postDeletion = await PostModel.deleteMany({userId: req.params.userId});
+        // if(postList.length!=0){
+        //     const deletedPostIdList = postList.map(info=>info._id);
+        //     // $in operation is support in mongoseDB: https://www.mongodb.com/docs/manual/reference/operator/query/in/#mongodb-query-op.-in
+        //     // const commentLinkingDeletion = await CommentModel.deleteMany({postId:{$in:deletedPostIdList}});
+        //     const commentDeletion = await CommentModel.deleteMany({userId:req.params.userId});
+        //     const postDeletion = await PostModel.deleteMany({userId: req.params.userId});
+        // }
+
+        // const userInfo = await UserModel.findByIdAndDelete(req.params.userId);
+
+        // Delete all the votes made
+        // Get all the relevant posts as list
+        const votedVoteList = await VoteModel.find({userId: req.params.userId});
+        // Map the voteList to be the list of postId and use it to get all the voted posts as list.
+        const votedVotesId = votedVoteList.map((value)=>{return value.postId});
+        // const votedPostList = await PostModel.find({_id: {$in:votedVoteList.map((value)=>{return value.postId})}});
+        for(let i = 0; i<votedVoteList.length;i++){
+            if(votedVoteList.at(i).voteType=="upvote"){
+                await PostModel.findByIdAndUpdate(votedVotesId.at(i), {$inc: {upvotes: -1}});
+            }else{
+                await PostModel.findByIdAndUpdate(votedVotesId.at(i), {$inc: {downvotes: -1}});
+            }
         }
 
-        const userInfo = await UserModel.findByIdAndDelete(req.params.userId);
+        const deleteVotesDoc = await VoteModel.deleteMany({userId: req.params.userId});
     } catch (error) {
         res.status(400).clearCookie("token").json({message:"error"});
         console.log(error);

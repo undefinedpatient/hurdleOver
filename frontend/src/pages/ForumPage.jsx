@@ -36,10 +36,10 @@ export default function ForumPage(){
                 <div className="filterAndSort">
                     <form className="filterAndSortSectionForm" action="">
                         <select required name="dropdown" id="category" defaultValue="ascending" onChange={event=>setOrder(event.target.value)}>
-                            <option value="ascending">By Date: Ascending</option>
-                            <option value="descending">By Date: Descending</option>
-                            <option value="upvote">By votes: Upvotes</option>
-                            <option value="downvote">By votes: Downvotes</option>
+                            <option value="latest">By Date: Latest</option>
+                            <option value="oldest">By Date: Oldest</option>
+                            <option value="upvote">By votes: Ascending</option>
+                            <option value="downvote">By votes: Descending</option>
                         </select>
                         <select name="dropdown" id="category" defaultValue="" onChange={event=>setCategory(event.target.value)}>
                             <option value="">No Specific Category</option>

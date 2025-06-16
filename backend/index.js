@@ -139,7 +139,7 @@ app.post("/logout", (req, res)=>{
 
 app.get("/post", async (req, res)=>{
     // Bubble Sort an input list of posts in descending order
-    function bubbleSortInvertDate(postlist){
+    function bubbleSortInvertDate(postlist, invert){
         for(let i = 0; i<postlist.length; i++){
             for(let j = 0; j<postlist.length-i-1; i++){
                 let temp = postlist[j];
@@ -148,6 +148,24 @@ app.get("/post", async (req, res)=>{
                     postlist[j+1] = temp;
                 }
             }
+        }
+        if(invert){
+            postlist = postlist.reverse();
+        }
+        return postlist;
+    }
+    function bubbleSortInvertVotes(postlist, invert){
+        for(let i = 0; i<postlist.length; i++){
+            for(let j = 0; j<postlist.length-i-1; i++){
+                let temp = postlist[j];
+                if((postlist[j]["upvotes"]-postlist[j]["downvotes"])>(postlist[j+1]["upvotes"]-postlist[j+1]["downvotes"])){
+                    postlist[j] = postlist[j+1];
+                    postlist[j+1] = temp;
+                }
+            }
+        }
+        if(invert){
+            postlist = postlist.reverse();
         }
         return postlist;
     }
@@ -164,8 +182,15 @@ app.get("/post", async (req, res)=>{
         res.status(200).json({});
         return;
     }
-    if(req.query.order!=null&&req.query.order=="descending"){
-        posts = bubbleSortInvertDate(posts);
+    if(req.query.order!=null&&req.query.order!=""){
+        if(req.query.order=="oldest"){
+            posts = bubbleSortInvertDate(posts, false);
+        }else if(req.query.order=="upvote"){
+            posts = bubbleSortInvertVotes(posts, true);
+        }else{
+            posts = bubbleSortInvertVotes(posts, false);
+        }
+        
     }
     if(req.query.category!=null&&req.query.category!=""){
         posts = filterListByCategory(posts, req.query.category);
@@ -174,7 +199,7 @@ app.get("/post", async (req, res)=>{
         if(req.query.resolveState=="resolved"){
             posts = filterListByResolvedState(posts, true);
         }else{
-            posts = filterListByResolvedState(posts, false);
+            posts = filterListByResolvedState(posts, true);
         }
         
     }

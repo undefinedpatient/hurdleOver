@@ -9,7 +9,7 @@ const PostSchema = new mongoose.Schema({
     commentCount: {type:Number, default:0},
     upvotes: {type:Number, default:0},
     downvotes: {type:Number, default:0},
-    resolve: {type:Boolean, default:false}
+    isResolved: {type:Boolean, default:false}
 },{
     timestamps:true
 });

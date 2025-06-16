@@ -201,7 +201,7 @@ app.post("/post", async (req, res)=>{
 });
 // For post editing by the author only
 app.put("/post", async (req, res)=>{
-    const {title, summary, category, content, postId} = req.body;
+    const {title, summary, category, content, postId, isResolved} = req.body;
     const {token} = req.cookies;
     let userId = "";
     if(token==null||token.length==0){
@@ -224,7 +224,8 @@ app.put("/post", async (req, res)=>{
                 summary: summary,
                 userId: userId,
                 category: category,
-                content: content
+                content: content,
+                isResolved: isResolved
             }
         );
         res.status(200).json({postDoc});
@@ -310,7 +311,8 @@ app.get("/post/:id", async (req, res)=>{
         upvotes: postInfo.upvotes,
         downvotes: postInfo.downvotes,
         createdAt: format(postInfo.createdAt,"Pp"),
-        updatedAt: format(postInfo.updatedAt,"Pp")
+        updatedAt: format(postInfo.updatedAt,"Pp"),
+        isResolved: postInfo.isResolved
     }
     res.status(200).json(post);
 });

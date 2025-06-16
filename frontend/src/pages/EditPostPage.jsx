@@ -31,6 +31,7 @@ export default function EditPostPage(){
     const [title,setTitle] = useState("");
     const [category,setCategory] = useState("");
     const [summary,setSummary] = useState("");
+    const [isResolved, setIsResolved] = useState("");
     const [content, setContent] = useState("");
     //
     const params = useParams();
@@ -68,27 +69,30 @@ export default function EditPostPage(){
             setTitle(postInfo.title);
             setSummary(postInfo.summary);
             setContent(postInfo.content);
+            setIsResolved(postInfo.isResolved);
         }
         
         setPostInfo();
         editor.commands.setContent(content);
     },[content]);
-
-    async function onCreatePost(event){
+    // Form data are not required, just sample code below
+    async function onEditPost(event){
         event.preventDefault();
         const data = new FormData();
         data.set("title", title);
         data.set("summary", summary);
         data.set("category", category);
         data.set("content", editor.getHTML());
+        data.set("isResolved", isResolved);
         const response = await fetch("http://localhost:4000/post", {
             method: "PUT",
             body: JSON.stringify({
                 postId: params.id,
-                title:title,
-                summary:summary,
-                category:category,
-                content: editor.getHTML()
+                title: title,
+                summary: summary,
+                category: category,
+                content: editor.getHTML(),
+                isResolved: isResolved
             }),
             headers: {'Content-Type':'application/json'},
             credentials: "include"
@@ -111,7 +115,7 @@ export default function EditPostPage(){
         <>
             <Header/>
             <main className="createPostPage">
-                <form onSubmit={onCreatePost} encType="multipart/form-data"> 
+                <form onSubmit={onEditPost} encType="multipart/form-data"> 
                     <h2>Edit Post</h2>
                     <input required type="text" id="title" placeholder="Title" value={title} onChange={event=>setTitle(event.target.value)}></input>
                     <select required name="dropdown" id="category" value={category} onChange={(event)=>{
@@ -126,6 +130,12 @@ export default function EditPostPage(){
                     </select>
                     <input required type="text" id="summary" defaultValue={summary} placeholder="Summary (max 120 characters)" onChange={event=>setSummary(event.target.value) } maxLength={120}></input>
                     <Tiptap editor={editor}/>
+                    <select required name="dropdown" id="isResolved" value={isResolved} onChange={(event)=>{
+                        setIsResolved(event.target.value);
+                    }}>
+                        <option value={false}>Not Resolved</option>
+                        <option value={true}>Resolved</option>
+                    </select>
                     <button type="submit">Update</button>
                     <button type="submit" onClick={onDeletePost}>Delete</button>
                 </form>

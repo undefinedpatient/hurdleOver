@@ -101,6 +101,25 @@ div.postPage{
                 display: block;
             }
         }
+        & div.notResolved{
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            width: fit-content;
+            padding: 4px;
+            background-color: rgb(163, 37, 37);
+            cursor: default;
+        }
+        & div.resolved{
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            width: fit-content;
+            padding: 4px;
+            width: fit-content;
+            background-color: rgb(72, 121, 0);
+            cursor: default;
+        }
     }
     div.commentList{
         position: relative;

@@ -175,6 +175,9 @@ export default function PostPage(){
                     "authorEditLink".concat((userInfo.username==postInfo.username)?" active":"")
 
                 } to={"/editpost/".concat(params.id)}></ReactLink>
+                <div className={(postInfo.isResolved)?"resolved":"notResolved"}>
+                    {(postInfo.isResolved)?"Resolved":"Not Resolved"}
+                </div>
                 <div className="buttonBar">
                     <button className={"buttonComment".concat((isActiveCommentEditor)?" active":"")} onClick={toggleCommentEditor}></button>
                     <span>{(postInfo.commentCount!=null&&postInfo.commentCount!=undefined)?postInfo.commentCount:0}</span>

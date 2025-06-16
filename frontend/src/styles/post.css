@@ -65,5 +65,17 @@
     &:hover{
         scale: 1.01;
     }
-
+    & div.notResolved{
+        width: fit-content;
+        margin-top: 16px;
+        padding: 4px;
+        background-color: rgb(163, 37, 37);
+    }
+    & div.resolved{
+        width: fit-content;
+        margin-top: 16px;
+        padding: 4px;
+        width: fit-content;
+        background-color: rgb(72, 121, 0);
+    }
 }

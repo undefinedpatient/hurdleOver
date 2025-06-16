@@ -85,7 +85,7 @@ export default function IndexPage() {
 								2. How do I change my username?
 							</p>
 							<p className="answer">
-								Click on yout current username on the top right corner, you will be directed into the setting section, then 
+								Click on yout current username on the top right corner, you will be directed into the setting section.
 							</p>
 						</span>
 						<span>

@@ -91,7 +91,6 @@ export default function PostPage(){
         getPost();
         getComments();
         getVoteState();
-        console.log("Receiving: "+voteState);
     }
     ,[voteState]);
 
@@ -119,7 +118,6 @@ export default function PostPage(){
     }
 
     async function sendVote(voteType){
-        console.log("Vote sending...");
         const response = await fetch(`http://localhost:4000/post/vote/${params.id}`,
             {
                 method:"PUT",
@@ -131,10 +129,8 @@ export default function PostPage(){
                 credentials: "include"
             }
         );
-        console.log(response);
         const voteInfo = await response.text();
         await setVoteState(voteInfo);
-        console.log("Vote sent!");
         
     }
     async function onSubmitCommentClicked(event){
@@ -195,7 +191,6 @@ export default function PostPage(){
                 </div>
                 {
                     (comments!=null && comments.length!=0)?comments.map((comment)=>{
-                        console.log(comment);
                         return (<>
                             <Comment commentId={comment._id} userId={comment.userId} content={comment.content} createdAt={comment.createdAt} canDeleteByCurrentUser={(comment.userId==userInfo.id)}/>
                         </>

@@ -139,7 +139,7 @@ app.post("/logout", (req, res)=>{
 
 app.get("/post", async (req, res)=>{
     // Bubble Sort an input list of posts in descending order
-    function bubbleSortInvert(postlist){
+    function bubbleSortInvertDate(postlist){
         for(let i = 0; i<postlist.length; i++){
             for(let j = 0; j<postlist.length-i-1; i++){
                 let temp = postlist[j];
@@ -151,8 +151,11 @@ app.get("/post", async (req, res)=>{
         }
         return postlist;
     }
-    function filterCategory(postlist, categoryName){
+    function filterListByCategory(postlist, categoryName){
         return postlist.filter(item=>(item.category==categoryName));
+    }
+    function filterListByResolvedState(postlist, resolvedState){
+        return postlist.filter(item=>(item.isResolved==resolvedState));
     }
 
 
@@ -162,10 +165,18 @@ app.get("/post", async (req, res)=>{
         return;
     }
     if(req.query.order!=null&&req.query.order=="descending"){
-        posts = bubbleSortInvert(posts);
+        posts = bubbleSortInvertDate(posts);
     }
     if(req.query.category!=null&&req.query.category!=""){
-        posts = filterCategory(posts, req.query.category);
+        posts = filterListByCategory(posts, req.query.category);
+    }
+    if(req.query.resolveState!=null&&req.query.resolveState!=""){
+        if(req.query.resolveState=="resolved"){
+            posts = filterListByResolvedState(posts, true);
+        }else{
+            posts = filterListByResolvedState(posts, false);
+        }
+        
     }
     // console.log(posts);
     res.status(200).json(posts);

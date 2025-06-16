@@ -120,7 +120,6 @@ export default function EditPostPage(){
                     <input required type="text" id="title" placeholder="Title" value={title} onChange={event=>setTitle(event.target.value)}></input>
                     <select required name="dropdown" id="category" value={category} onChange={(event)=>{
                         setCategory(event.target.value);
-                        console.log(event.target.value);
                     }}>
                         <option value="none" disabled>Select your category</option>
                         <option value="modelling">Modelling</option>

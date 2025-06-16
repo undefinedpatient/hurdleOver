@@ -199,7 +199,7 @@ app.get("/post", async (req, res)=>{
         if(req.query.resolveState=="resolved"){
             posts = filterListByResolvedState(posts, true);
         }else{
-            posts = filterListByResolvedState(posts, true);
+            posts = filterListByResolvedState(posts, false);
         }
         
     }

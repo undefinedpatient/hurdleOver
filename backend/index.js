@@ -201,7 +201,6 @@ app.get("/post", async (req, res)=>{
         }else{
             posts = filterListByResolvedState(posts, false);
         }
-        
     }
     // console.log(posts);
     res.status(200).json(posts);

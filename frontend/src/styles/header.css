@@ -2,6 +2,7 @@ header{
     position: sticky;
     top: 0;
     display: flex;
+    min-height: 72px;
     width: 100vw;
     height:72px;
     background-color: var(--layer02);
@@ -24,7 +25,7 @@ header{
         width: 72px;
     }
     /* NavBar */
-    & nav{
+    & nav.horizontalNav{
         position: relative;
         display:flex;
             flex-direction: row;
@@ -68,26 +69,118 @@ header{
             line-height: 100%;
             font-size: 1.4rem;
             background-color: transparent;
-            &:hover{
-                background-color: rgb(255 255 255/0.1);
+            &:hover, &:active, &:focus{
+                background-color: rgb(255 255 255/0.2);
+            }
+        }
+        & div.dropdown{
+            position: relative;
+            display: flex;
+                flex-direction: column;
+            height: 100%;
+            & button.dropdownButton{
+                position: relative;
+                display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                background: transparent;
+                flex: 1 1 0;
+                min-width: 140px;
+                min-height: 72px;
+                max-width: 180px;
+                padding: 0px 16px;
+                text-align: center;
+                text-decoration: none;
+                height: 72px;
+                line-height: 100%;
+                font-size: 1.4rem;
+                &:hover{
+                    background-color: rgb(255 255 255/0.2);
+                    cursor: pointer;
+                }
+            }
+            & a{
+                height: 72px;
+            }
+            & div.dropdownContent{
+                background-color: var(--layer02);
+                position: relative;
+                height: max-content;
+                display: none;
+            }
+            & div.dropdownContent.active{
+                display: inline;
             }
         }
     }
-}
-& div.dropdown{
-    position: relative;
-    display: block;
-    height: 100%;
-    & a{
-        height: 72px;
-    }
-    & div.dropdownContent{
+    & nav.verticalNav{
+        position: fixed;
+            top: 0px;
+        display: flex;
+            flex-direction: column;
+            align-items: center;
+        visibility: hidden;
         background-color: var(--layer02);
-        position: relative;
-        height: max-content;
+        padding: 64px 16px;
+        width: 100vw;
+        height: 60vh;
+        translate: 100% 0;
+        transition: all 0.2 ease;
+        & button.dropdownButton{
+            display: none;
+        }
+        & span{
+            display:flex;
+                flex-direction: column;
+            padding: 16px;
+            text-align: center;
+            & a{
+                font-size: 2em;
+                text-decoration: none;
+                text-align: center;
+                margin: 8px;
+            }
+        }
+        & div.dropdownContent{
+            display: flex;
+                flex-direction: column;
+                
+        }
+        &.active{
+            translate: 0% 0;
+            transition: all 0.2 ease;
+        }
+    }
+    & button.verticalMenuButton{
         display: none;
+        position:absolute;
+            right: 0;
+        background-color: transparent;
+        background-image: url("../assets/menu.svg");
+        background-size: cover;
+        translate: 160% 0;
+        margin: 21px;
+        width: 36px;
+        height: 36px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        z-index: 1;
     }
-    &:hover div.dropdownContent{
-        display: block;
+}
+
+@media only screen and (max-width: 800px){
+    header{
+        & nav.horizontalNav{
+            display: none;
+        }
+        & button.verticalMenuButton{
+            display: block;
+            translate: 0 0;
+        }
+        & nav.verticalNav{
+            visibility: visible;
+        }
     }
+    
 }

@@ -7,13 +7,22 @@ import { UserContext } from '../UserContext';
 
 // This function take username only but not the entire info
 function Profile({username}){
+    async function toggleDropdownMenu(event){
+        event.preventDefault();
+        if(!document.querySelector(".dropdownContent").classList.contains("active")){
+            document.querySelector(".dropdownContent").classList.add("active");
+        }else{
+            document.querySelector(".dropdownContent").classList.remove("active");
+        }
+    }
     if(username!=null&&username.length!=0){
         return (
             <>
                 <Link to="/createpost">Create New Post</Link>
                 <div className="dropdown">
-                    <Link to="/settings">{username}</Link>
+                    <button className="dropdownButton" onClick={toggleDropdownMenu}>{username}</button>
                     <div className="dropdownContent">
+                        <Link to="/settings">My Profile</Link>
                         <Link to="/myposts">MyPosts</Link>
                         <Link to="/login" onClick={logout}>Logout</Link>
                     </div>
@@ -66,12 +75,23 @@ export default function Header(){
         checkLoginStatus();
     }, []);
 
+    async function toggleVerticalMenu(event){
+        event.preventDefault();
+        if(!document.querySelector(".verticalNav").classList.contains("active")){
+            document.querySelector(".verticalNav").classList.add("active");
+        }else{
+            document.querySelector(".verticalNav").classList.remove("active");
+        }
+        
+    }
+
+    
 
     return (
         <header>
             <img className="icon" src={logo}></img>
             <h3>HurdleOver</h3>
-            <nav>
+            <nav className="horizontalNav">
                 <span>
                     <Link to="/">Home</Link>
                     <Link to="/forum">Forum</Link>
@@ -80,6 +100,16 @@ export default function Header(){
                     <Profile username={userInfo.username}/>
                 </span>
             </nav>
+            <nav className="verticalNav">
+                <span>
+                    <Link to="/">Home</Link>
+                    <Link to="/forum">Forum</Link>
+                </span>
+                <span>
+                    <Profile username={userInfo.username}/>
+                </span>
+            </nav>
+            <button className="verticalMenuButton" onClick={toggleVerticalMenu}></button>
         </header>
     );
 }

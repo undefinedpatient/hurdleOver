@@ -1,5 +1,5 @@
 # HurdleOver
 
-## I found myself some actual project to do to contribute to something
+## Initial attempt to navigate into web development
 
 ##
